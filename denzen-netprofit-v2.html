@@ -1,0 +1,1135 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0B1411">
+<title>Denzen Profit</title>
+<link rel="icon" id="fav" href="">
+<link rel="apple-touch-icon" id="fav2" href="">
+<script>try{var t=localStorage.getItem('dz_np2_theme');if(t==='light')document.documentElement.dataset.theme='light';}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0B1411;--sf:#111E19;--sf2:#172820;--sf3:#1F3429;--sf4:#2A4536;
+  --hdr:rgba(11,20,17,.84);
+  --line:rgba(255,255,255,.07);--line2:rgba(255,255,255,.15);
+  --ink:#F3EFE6;--ink2:#D5D0C4;--mut:#8C9B91;
+  --gold:#D8B35A;--gold2:#EFD188;--goldc:#A98230;--gold-dim:rgba(216,179,90,.14);
+  --pos:#5ED9A2;--posc:#22A472;--pos-dim:rgba(94,217,162,.14);
+  --neg:#FF7D8E;--negc:#D9566C;--neg-dim:rgba(255,125,142,.14);
+  --amber:#F0B65A;--amber-dim:rgba(240,182,90,.18);
+  --btn-ink:#14100A;
+  --shadow:0 14px 36px rgba(0,0,0,.42);
+  --glow:radial-gradient(900px 420px at 50% -160px,rgba(216,179,90,.16),transparent 70%);
+  color-scheme:dark;
+}
+:root[data-theme=light]{
+  --bg:#F3F0E8;--sf:#FFFFFF;--sf2:#F7F4EC;--sf3:#ECE7DB;--sf4:#DED7C6;
+  --hdr:rgba(243,240,232,.9);
+  --line:rgba(20,30,25,.09);--line2:rgba(20,30,25,.18);
+  --ink:#152019;--ink2:#38463F;--mut:#6E7C73;
+  --gold:#9A7718;--gold2:#B99332;--goldc:#8A6A12;--gold-dim:rgba(154,119,24,.12);
+  --pos:#157A54;--posc:#157A54;--pos-dim:rgba(21,122,84,.12);
+  --neg:#C83A52;--negc:#C83A52;--neg-dim:rgba(200,58,82,.12);
+  --amber:#B06F0C;--amber-dim:rgba(176,111,12,.16);
+  --btn-ink:#FFFFFF;
+  --shadow:0 14px 36px rgba(20,30,25,.08);
+  --glow:radial-gradient(900px 420px at 50% -160px,rgba(154,119,24,.10),transparent 70%);
+  color-scheme:light;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Manrope',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;padding-bottom:calc(86px + env(safe-area-inset-bottom));font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:var(--glow);z-index:0}
+button{font:inherit;color:inherit}
+h1,h2,h3{font-family:'Playfair Display',Georgia,serif;font-weight:500;letter-spacing:-.01em}
+h2{font-size:19px}
+svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+[hidden]{display:none!important}
+.pos{color:var(--pos)}.neg{color:var(--neg)}.gold{color:var(--gold)}.mut{color:var(--mut)}.amber{color:var(--amber)}
+
+/* header */
+header{position:sticky;top:0;z-index:20;background:var(--hdr);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0;margin-right:auto}
+.brand img{width:36px;height:36px;flex:none}
+.brand .t{font-family:'Playfair Display',Georgia,serif;font-size:18px;line-height:1;font-weight:500}
+.brand .s{font-size:11.5px;color:var(--mut);margin-top:3px}
+.hbtn{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--sf);color:var(--ink2);display:grid;place-items:center;cursor:pointer;flex:none}
+.hbtn svg{width:18px;height:18px}
+.hbtn.on{color:var(--gold);border-color:var(--gold)}
+.mnav{order:5;width:100%;display:flex;justify-content:center}
+.mnav .pill{display:flex;align-items:center;background:var(--sf);border:1px solid var(--line);border-radius:999px;padding:2px;position:relative}
+.mnav button{border:0;background:transparent;cursor:pointer;padding:7px 12px;border-radius:999px;color:var(--ink)}
+.mnav .ml{font-weight:700;font-size:13.5px;min-width:130px;text-align:center}
+.mnav input[type=month]{position:absolute;opacity:0;width:1px;height:1px;left:50%;top:50%}
+@media(min-width:760px){.mnav{order:0;width:auto;margin-left:auto;margin-right:6px}.brand{margin-right:0}}
+
+/* layout */
+main{max-width:1120px;margin:0 auto;padding:16px 16px 0;position:relative;z-index:1}
+.view{display:none}.view.on{display:block}
+.g2{display:grid;gap:16px}
+@media(min-width:900px){.g2{grid-template-columns:1.1fr 1fr;align-items:start}}
+.stack{display:grid;gap:16px}
+.card{background:var(--sf);border:1px solid var(--line);border-radius:22px;padding:18px}
+.card.raised{box-shadow:var(--shadow)}
+.card-h{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}
+.card-h .k{font-size:13px;color:var(--mut);white-space:nowrap}
+.card .d{font-size:13px;color:var(--mut);margin:-6px 0 14px;line-height:1.5}
+.link{background:none;border:0;color:var(--gold);font-size:13.5px;font-weight:700;cursor:pointer;padding:4px 0;white-space:nowrap}
+.empty{padding:18px 0;color:var(--mut);font-size:14px}
+.empty b{display:block;color:var(--ink);font-family:'Playfair Display',serif;font-weight:500;font-size:18px;margin-bottom:4px}
+.hint{margin-top:10px;font-size:12.5px;color:var(--mut);line-height:1.5}
+.hint b{color:var(--ink2)}
+.sec-t{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:22px 0 10px}
+.sec-t p{font-size:13px;color:var(--mut)}
+.sec-t h3{font-size:16px}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:linear-gradient(150deg,var(--sf3),var(--sf) 60%);border:1px solid var(--line2);border-radius:26px;padding:22px 20px 18px;box-shadow:var(--shadow)}
+.hero::after{content:"";position:absolute;right:-60px;top:-80px;width:240px;height:240px;border-radius:50%;background:var(--gold-dim);filter:blur(20px);pointer-events:none}
+.hero.neg::after{background:var(--neg-dim)}
+.hero-top{display:flex;justify-content:space-between;align-items:center;gap:10px;position:relative}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);font-weight:700}
+.tag{font-size:11.5px;font-weight:800;padding:4px 10px;border-radius:999px;background:var(--sf3);color:var(--ink2);white-space:nowrap}
+.tag.pos{background:var(--pos-dim);color:var(--pos)}.tag.neg{background:var(--neg-dim);color:var(--neg)}.tag.gold{background:var(--gold-dim);color:var(--gold)}.tag.amber{background:var(--amber-dim);color:var(--amber)}
+.hero-big{font-family:'Playfair Display',Georgia,serif;font-size:clamp(34px,9vw,52px);line-height:1.05;margin:10px 0 6px;position:relative;white-space:nowrap}
+.hero.pos .hero-big{color:var(--pos)}.hero.neg .hero-big{color:var(--neg)}
+.hero-sub{font-size:13px;color:var(--mut);position:relative;line-height:1.45}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px;position:relative}
+.stats>div{background:var(--sf2);border:1px solid var(--line);border-radius:14px;padding:10px 12px;min-width:0}
+.stats span{display:block;font-size:11.5px;color:var(--mut);margin-bottom:3px}
+.stats b{display:block;font-size:15.5px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stats small{display:block;font-size:11px;color:var(--mut);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* cover bar */
+.cover{height:14px;border-radius:999px;background:var(--amber-dim);overflow:hidden;position:relative;margin:10px 0 8px;border:1px solid var(--line)}
+.cover i{position:absolute;left:0;top:0;bottom:0;border-radius:999px;background:linear-gradient(90deg,var(--posc),var(--pos));transition:width .5s ease}
+.cover.done{background:var(--pos-dim)}
+.cov-row{display:flex;justify-content:space-between;gap:10px;font-size:13px;font-weight:700}
+.cov-big{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.cov-big b{font-family:'Playfair Display',serif;font-size:26px;font-weight:500;white-space:nowrap}
+.cov-big span{font-size:12.5px;color:var(--mut)}
+
+/* ledger */
+.lrow{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--line);gap:12px}
+.lrow .l{display:flex;align-items:center;gap:10px;color:var(--ink2);font-size:14px;flex:none;max-width:58%}
+.lrow .l small{display:block;font-size:11.5px;color:var(--mut);font-weight:500;line-height:1.35}
+.lrow .op{width:16px;text-align:center;color:var(--mut);font-family:'Playfair Display',serif;font-size:17px;flex:none}
+.lrow .v{font-weight:700;font-size:15px;white-space:nowrap;text-align:right;min-width:0}
+.lrow .v small{display:block;font-size:11.5px;color:var(--mut);font-weight:500;white-space:normal;line-height:1.35;margin-top:1px}
+.lrow.total{border-bottom:0;padding-top:14px}
+.lrow.total .l{color:var(--ink);font-weight:700;font-size:15px}
+.lrow.total .v{font-family:'Playfair Display',serif;font-size:24px;font-weight:500}
+.lrow.sub .v{font-family:'Playfair Display',serif;font-size:19px;font-weight:500}
+.lrow .v.mut{font-weight:600}
+.lrow.click{cursor:pointer}
+
+/* ring + progress */
+.ring{position:relative;width:96px;height:96px;flex:none}
+.ring svg{width:96px;height:96px;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:9;stroke-linecap:round}
+.ring .bg{stroke:var(--sf3)}
+.ring .fg{stroke:var(--gold);transition:stroke-dashoffset .6s ease}
+.ring .fg.pos{stroke:var(--pos)}.ring .fg.neg{stroke:var(--neg)}.ring .fg.amber{stroke:var(--amber)}
+.ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:17px;font-weight:800}
+.tgt{display:flex;gap:16px;align-items:center}
+.tgt .tx{min-width:0;flex:1}
+.tgt .tx b{display:block;font-size:15px;font-weight:800}
+.tgt .tx p{font-size:12.5px;color:var(--mut);margin-top:4px;line-height:1.45}
+.pbar{height:8px;border-radius:999px;background:var(--sf3);overflow:visible;position:relative}
+.pbar i{position:absolute;left:0;top:0;bottom:0;border-radius:999px;background:var(--goldc)}
+.pbar i.pos{background:var(--posc)}.pbar i.neg{background:var(--negc)}.pbar i.amber{background:var(--amber)}.pbar i.gold{background:var(--goldc)}
+.pbar em{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink2);opacity:.7}
+.kv{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:14px}
+.kv>div{background:var(--sf2);border-radius:12px;padding:9px 11px;min-width:0}
+.kv span{display:block;font-size:11.5px;color:var(--mut)}
+.kv b{display:block;font-size:14.5px;font-weight:800;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kv small{display:block;font-size:11px;color:var(--mut);margin-top:1px}
+
+/* leaderboard */
+.lb{display:grid;grid-template-columns:30px 1fr auto;gap:6px 10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.lb .rk{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:12.5px;font-weight:800;background:var(--sf3);color:var(--ink2)}
+.lb .rk.r1{background:var(--gold);color:var(--btn-ink)}.lb .rk.r2{background:var(--sf4);color:var(--ink)}.lb .rk.r3{background:var(--goldc);color:#fff}
+.lb .n{font-weight:700;font-size:14.5px;min-width:0}
+.lb .n small{display:block;font-size:11.5px;color:var(--mut);font-weight:500}
+.lb .v{text-align:right;font-weight:800;font-size:15px;white-space:nowrap}
+.lb .v small{display:block;font-size:11px;color:var(--mut);font-weight:600}
+.lb .bar{grid-column:2/4;height:6px;border-radius:999px;background:var(--sf3);overflow:hidden}
+.lb .bar i{display:block;height:100%;border-radius:999px;background:var(--goldc)}
+.lb .bar i.pos{background:var(--posc)}.lb .bar i.neg{background:var(--negc)}
+
+/* person box */
+.pgrid{display:grid;gap:14px;align-items:start}
+@media(min-width:900px){.pgrid{grid-template-columns:repeat(2,1fr)}}
+.pbox{background:var(--sf);border:1px solid var(--line);border-radius:22px;padding:16px 16px 10px}
+.pbox.co{border-color:var(--gold-dim);background:linear-gradient(160deg,var(--gold-dim),var(--sf) 55%)}
+.pbox-h{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.ava{width:44px;height:44px;border-radius:50%;background:var(--sf3);border:1.5px solid var(--gold);display:grid;place-items:center;font-family:'Playfair Display',serif;font-size:17px;color:var(--gold);flex:none}
+.pbox-h .n{font-weight:800;font-size:16px}.pbox-h .d{font-size:12.5px;color:var(--mut);margin-top:2px}
+.pbox-h .net{margin-left:auto;text-align:right;flex:none}
+.pbox-h .net b{display:block;font-family:'Playfair Display',serif;font-size:23px;font-weight:500;line-height:1.1}
+.pbox-h .net span{font-size:11.5px;color:var(--mut)}
+.story{font-size:13px;color:var(--ink2);line-height:1.55;padding:10px 12px;border-radius:12px;background:var(--sf2);margin:6px 0 10px}
+.slab{margin:8px 0 6px}
+.slab-l{display:flex;justify-content:space-between;gap:8px;font-size:11.5px;color:var(--mut);margin-top:6px}
+.pbox .lrow{padding:9px 0}.pbox .lrow .l{font-size:13.5px}.pbox .lrow .v{font-size:14px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.chip{display:inline-block;font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:var(--sf3);color:var(--ink2)}
+.chip.gold{background:var(--gold-dim);color:var(--gold)}.chip.neg{background:var(--neg-dim);color:var(--neg)}.chip.pos{background:var(--pos-dim);color:var(--pos)}.chip.amber{background:var(--amber-dim);color:var(--amber)}
+
+/* sale rows */
+.srow{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.srow .m{font-weight:700;font-size:14.5px;line-height:1.3}
+.srow .s{font-size:12.5px;color:var(--mut);margin-top:3px}
+.srow .p{text-align:right;white-space:nowrap;flex:none}
+.srow .p b{display:block;font-size:15px;font-weight:800}
+.srow .p span{font-size:12px;color:var(--mut)}
+.srow .p .pf{font-weight:700;font-size:12.5px}
+.srow.ref{opacity:.55}.srow.ref .p b{text-decoration:line-through}
+.srow .chips{margin-top:6px}
+.acts{display:flex;gap:2px;margin-top:6px;justify-content:flex-end}
+.ibtn{width:32px;height:32px;border-radius:9px;border:0;background:transparent;color:var(--mut);display:grid;place-items:center;cursor:pointer}
+.ibtn svg{width:17px;height:17px}
+.ibtn:hover{background:var(--sf3);color:var(--ink)}
+.ibtn.danger:hover{color:var(--neg)}
+.dgroup{display:flex;justify-content:space-between;align-items:baseline;margin-top:18px;padding-bottom:4px;border-bottom:1px solid var(--line2)}
+.dgroup b{font-family:'Playfair Display',serif;font-weight:500;font-size:16px}
+.dgroup span{font-size:12.5px;color:var(--mut)}
+.search{margin-top:12px}
+.sumstrip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.sumstrip>div{background:var(--sf);border:1px solid var(--line);border-radius:16px;padding:12px;min-width:0}
+.sumstrip span{display:block;font-size:11.5px;color:var(--mut)}
+.sumstrip b{display:block;font-family:'Playfair Display',serif;font-weight:500;font-size:20px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sumstrip small{display:block;font-size:11px;color:var(--mut);margin-top:2px}
+
+/* forms */
+label.f{display:block;margin-bottom:14px;min-width:0}
+label.f span{display:block;font-size:13px;color:var(--mut);margin-bottom:6px;font-weight:600}
+input,select,textarea{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--sf2);border:1px solid var(--line2);border-radius:12px;padding:12px 14px;outline:none;transition:border-color .15s,box-shadow .15s;-webkit-appearance:none;appearance:none;min-width:0}
+select{background-image:linear-gradient(45deg,transparent 50%,var(--mut) 50%),linear-gradient(135deg,var(--mut) 50%,transparent 50%);background-position:calc(100% - 20px) 50%,calc(100% - 14px) 50%;background-size:6px 6px;background-repeat:no-repeat;padding-right:40px}
+input:focus,select:focus{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-dim)}
+input::placeholder{color:var(--mut);opacity:.7}
+input[type=month],input[type=date]{min-height:48px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.prev{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;border-radius:14px;background:var(--sf2);margin-bottom:16px;font-size:13px;color:var(--mut);line-height:1.4}
+.prev b{font-family:'Playfair Display',serif;font-size:22px;font-weight:500;white-space:nowrap}
+.btn{font-weight:800;font-size:15px;border:0;border-radius:14px;padding:14px 18px;cursor:pointer;transition:transform .08s,filter .15s}
+.btn:active{transform:scale(.985)}
+.btn-primary{background:linear-gradient(135deg,var(--gold2),var(--goldc));color:var(--btn-ink);width:100%}
+.btn-ghost{background:var(--sf3);color:var(--ink2)}
+.btn-danger{background:var(--neg-dim);color:var(--neg)}
+.btn-sm{padding:10px 14px;font-size:13.5px;border-radius:11px;width:auto}
+.row-acts{display:flex;gap:8px;margin-top:4px;flex-wrap:wrap}
+.seg{display:inline-flex;background:var(--sf3);border-radius:11px;padding:3px;gap:2px}
+.seg button{font-size:12.5px;font-weight:700;border:0;background:transparent;color:var(--mut);padding:7px 12px;border-radius:9px;cursor:pointer;white-space:nowrap}
+.seg button.on{background:var(--sf);color:var(--gold);box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.sw{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--ink2);cursor:pointer;user-select:none;border:0;background:transparent;padding:4px 0}
+.sw i{width:36px;height:21px;border-radius:999px;background:var(--sf3);border:1px solid var(--line2);position:relative;transition:.2s;flex:none}
+.sw i::after{content:"";position:absolute;top:2px;left:2px;width:15px;height:15px;border-radius:50%;background:var(--mut);transition:.2s}
+.sw.on i{background:var(--goldc);border-color:var(--goldc)}.sw.on i::after{left:17px;background:#fff}
+.stepper{display:flex;align-items:center;gap:6px}
+.stepper input{text-align:center;padding:10px 6px}
+.stepper button{width:40px;height:46px;border-radius:11px;border:1px solid var(--line2);background:var(--sf2);cursor:pointer;font-size:18px;font-weight:700;color:var(--ink2);flex:none}
+
+/* setup rows */
+.xrow{display:grid;grid-template-columns:1fr 118px 34px;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.xrow input{padding:10px 12px;font-size:15px;border-radius:10px}
+.xrow .dt{font-size:11.5px;color:var(--mut);grid-column:1/-1;margin-top:-4px}
+.add-row{display:grid;grid-template-columns:1fr 118px auto;gap:8px;margin-top:12px;align-items:center}
+.add-row input{padding:11px 12px;font-size:15px;border-radius:11px}
+.srw{display:grid;grid-template-columns:auto 72px auto minmax(88px,1fr) 34px;gap:6px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line);font-size:13px;color:var(--mut);white-space:nowrap}
+.srw input{padding:9px 8px;font-size:15px;border-radius:10px}
+.prow{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.prow input{padding:9px 11px;font-size:15px;font-weight:700;border-radius:10px;background:transparent;border-color:transparent;min-width:0}
+.prow input:focus{background:var(--sf2);border-color:var(--gold)}
+.prow.off input{color:var(--mut);text-decoration:line-through}
+.tot{display:flex;justify-content:space-between;padding:12px 0 2px;font-size:14px;color:var(--ink2)}
+.tot b{font-family:'Playfair Display',serif;font-weight:500;font-size:19px;color:var(--ink)}
+.you-now{margin-top:12px;padding:12px 14px;border-radius:12px;background:var(--gold-dim);font-size:13.5px;color:var(--ink2)}
+.you-now b{color:var(--gold)}
+.custom{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:10px}
+
+/* history */
+.hist-wrap{overflow-x:auto;padding-bottom:6px;margin-top:4px}
+.hist{height:200px;display:block}
+.hist .gp{fill:var(--gold-dim);stroke:var(--goldc);stroke-width:1.5}
+.hist .net{fill:var(--posc)}.hist .loss{fill:var(--negc)}
+.hist .zero{stroke:var(--line2);stroke-width:1}
+.hist .lbl{fill:var(--mut);font-size:11px;font-family:'Manrope',sans-serif}
+.hist .lbl.cur{fill:var(--gold);font-weight:800}
+.hist .val{fill:var(--ink2);font-size:10.5px;font-weight:700;font-family:'Manrope',sans-serif}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--mut);margin:4px 0 10px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-2px;margin-right:6px}
+.legend .lg-gp{background:var(--gold-dim);border:1.5px solid var(--goldc)}.legend .lg-net{background:var(--posc)}.legend .lg-loss{background:var(--negc)}
+.hrow{display:grid;grid-template-columns:1.1fr 1fr 1fr 1fr;gap:8px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px;cursor:pointer;align-items:center}
+.hrow.head{color:var(--mut);font-size:12px;cursor:default;padding:6px 0}
+.hrow>:not(:first-child){text-align:right}
+.hrow b{font-weight:800}
+.hrow.cur b{color:var(--gold)}
+
+/* tabs */
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--hdr);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-top:1px solid var(--line);display:flex;justify-content:center;padding:6px 6px calc(6px + env(safe-area-inset-bottom))}
+nav.tabs button{flex:1;max-width:130px;font-size:11px;font-weight:700;border:0;background:transparent;color:var(--mut);display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 4px 4px;border-radius:12px;cursor:pointer}
+nav.tabs button svg{width:22px;height:22px}
+nav.tabs button.on{color:var(--gold)}
+nav.tabs .addb{position:relative;top:-10px}
+nav.tabs .addb i{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--gold2),var(--goldc));color:var(--btn-ink);display:grid;place-items:center;box-shadow:0 8px 22px rgba(169,130,48,.4)}
+nav.tabs .addb i svg{width:26px;height:26px;stroke-width:2.2}
+
+/* modal, toast, login */
+.ov{position:fixed;inset:0;background:rgba(5,10,8,.64);backdrop-filter:blur(4px);z-index:50;display:none;align-items:flex-end;justify-content:center;padding:16px}
+.ov.on{display:flex}
+@media(min-width:700px){.ov{align-items:center}}
+.md{background:var(--sf);border:1px solid var(--line2);border-radius:22px;padding:22px 20px;width:100%;max-width:420px;box-shadow:var(--shadow)}
+.md h3{font-size:21px;margin-bottom:8px}
+.md p{color:var(--ink2);font-size:14px;margin-bottom:14px;line-height:1.5}
+.md .macts{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
+.md .macts .btn{width:auto}
+.toast{position:fixed;left:50%;bottom:calc(94px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(16px);background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:12px;font-size:13.5px;font-weight:700;opacity:0;transition:.25s;z-index:60;pointer-events:none;white-space:nowrap;max-width:92vw;overflow:hidden;text-overflow:ellipsis}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.err{background:var(--neg);color:#fff}
+#login{position:fixed;inset:0;z-index:100;background:var(--bg);display:grid;place-items:center;padding:24px}
+#login::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 400px at 50% 30%,var(--gold-dim),transparent 70%)}
+#login .box{position:relative;width:100%;max-width:340px;text-align:center}
+#login img{width:92px;height:92px;margin-bottom:16px;filter:drop-shadow(0 10px 26px rgba(236,106,23,.35))}
+#login h1{font-size:32px;margin-bottom:2px}
+#login .s{color:var(--mut);margin-bottom:24px;font-size:14px}
+#login input{text-align:center;letter-spacing:.3em;font-size:20px;margin-bottom:12px}
+#login .err{color:var(--neg);font-size:13px;min-height:18px;margin-top:10px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body>
+
+<div id="login">
+  <div class="box">
+    <img class="logo" alt="Denzen Computer">
+    <h1>Denzen</h1>
+    <div class="s">Profit — sirf aap ke liye</div>
+    <input type="password" id="pw" inputmode="numeric" placeholder="••••" autocomplete="current-password">
+    <button class="btn btn-primary" id="pwbtn">Login</button>
+    <div class="err" id="pwerr"></div>
+  </div>
+</div>
+
+<header>
+  <div class="brand">
+    <img class="logo" alt="">
+    <div><div class="t">Denzen</div><div class="s" id="sync">connecting…</div></div>
+  </div>
+  <button class="hbtn" id="b-theme" title="Light / dark" aria-label="Theme">
+    <svg class="i" id="ic-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    <svg class="i" id="ic-moon" viewBox="0 0 24 24" hidden><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+  </button>
+  <button class="hbtn" id="b-setup" title="Setup — kharche, team, criteria" aria-label="Setup">
+    <svg class="i" viewBox="0 0 24 24"><path d="M4 6h9M19 6h1M4 12h3M13 12h7M4 18h11M21 18h-1"/><circle cx="16" cy="6" r="2.2"/><circle cx="10" cy="12" r="2.2"/><circle cx="18" cy="18" r="2.2"/></svg>
+  </button>
+  <div class="mnav">
+    <div class="pill">
+      <button id="m-prev" aria-label="Pichla mahina">‹</button>
+      <button class="ml" id="m-lbl">—</button>
+      <input type="month" id="m-in" aria-label="Mahina chunein">
+      <button id="m-next" aria-label="Agla mahina">›</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="view on" id="v-home"></section>
+  <section class="view" id="v-sales"></section>
+  <section class="view" id="v-add">
+    <div class="card raised" style="max-width:560px;margin:0 auto">
+      <h2 id="f-title">Nayi sale</h2>
+      <div class="d" id="f-sub">Cost aur sale price likhein — gross profit, Yousuf ka hissa aur salesperson ka hisaab khud ho jayega.</div>
+      <div class="two">
+        <label class="f"><span>Tareekh</span><input type="date" id="f-date"></label>
+        <label class="f"><span>Kis ne bechi</span><select id="f-person"></select></label>
+      </div>
+      <label class="f"><span>Laptop model</span><input id="f-model" placeholder="HP EliteBook 840 G8" autocomplete="off"></label>
+      <label class="f"><span>Specs</span><input id="f-specs" placeholder="i5 11th gen, 16 GB, 512 GB SSD" autocomplete="off"></label>
+      <div class="two">
+        <label class="f"><span>Cost price (Rs)</span><input type="number" inputmode="numeric" id="f-cost" placeholder="0"></label>
+        <label class="f"><span>Sale price (Rs)</span><input type="number" inputmode="numeric" id="f-price" placeholder="0"></label>
+      </div>
+      <label class="f"><span>Customer ya note (optional)</span><input id="f-note" placeholder="Customer ka naam, warranty, waghaira" autocomplete="off"></label>
+      <div class="prev" id="f-prev"><span>Is laptop ka gross profit</span><b>—</b></div>
+      <button class="btn btn-primary" id="f-save">Sale save karein</button>
+      <div class="row-acts" id="f-editacts" hidden style="margin-top:10px">
+        <button class="btn btn-ghost" id="f-cancel" style="flex:1">Cancel</button>
+      </div>
+    </div>
+  </section>
+  <section class="view" id="v-team"></section>
+  <section class="view" id="v-target"></section>
+  <section class="view" id="v-setup"></section>
+</main>
+
+<nav class="tabs">
+  <button data-v="home" class="on"><svg class="i" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>Home</button>
+  <button data-v="sales"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M8 14h5"/></svg>Sales</button>
+  <button data-v="add" class="addb"><i><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></i>Add</button>
+  <button data-v="team"><svg class="i" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.5"/><path d="M15.5 14.5a5 5 0 0 1 6 5"/></svg>Team</button>
+  <button data-v="target"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.3"/></svg>Target</button>
+</nav>
+
+<div class="ov" id="ov"><div class="md" id="md"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const LOGO="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2aWV3Qm94PSIwIDAgNTE0IDUxNCI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJkem8iIHgxPSIuMSIgeTE9Ii4wNSIgeDI9Ii44NSIgeTI9Ii45NSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZWM2YTE3Ii8+PHN0b3Agb2Zmc2V0PSIuNSIgc3RvcC1jb2xvcj0iI2YzOWExYyIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2Y4YzgyMyIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJkemQiIHgxPSIwIiB5MT0iMCIgeDI9IjAiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiM1OTU5NTkiLz48c3RvcCBvZmZzZXQ9Ii41NSIgc3RvcC1jb2xvcj0iIzJhMmEyYSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzEwMTAxMCIvPjwvbGluZWFyR3JhZGllbnQ+PGxpbmVhckdyYWRpZW50IGlkPSJkenciIHgxPSIwIiB5MT0iMCIgeDI9IjEiIHkyPSIxIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZmZmZmYiLz48c3RvcCBvZmZzZXQ9Ii42IiBzdG9wLWNvbG9yPSIjZTZlOGVjIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjYWViNGJkIi8+PC9saW5lYXJHcmFkaWVudD48cGF0aCBpZD0iZHpEIiBkPSJNMTE2IDM2M0MxMTYgMzYyIDExNiAzNTcgMTE2IDM1MkwxMTYgMzQzTDEyMCAzNDNDMTI4IDM0MyAxMzMgMzUwIDEzMiAzNTdDMTMxIDM2MyAxMTggMzY4IDExNiAzNjNaTTEzNyAzNjRDMTM2IDM2NCAxMzUgMzUyIDEzNyAzNDZDMTM3IDM0MyAxMzcgMzQzIDE0MiAzNDNDMTQ5IDM0MyAxNTEgMzQ1IDE0NSAzNDZDMTM5IDM0NyAxMzkgMzUwIDE0NCAzNTFDMTQ3IDM1MiAxNDggMzU1IDE0NCAzNTZDMTQwIDM1NiAxNDAgMzU2IDE0MCAzNThDMTQwIDM2MSAxNDEgMzYxIDE0NiAzNjJDMTQ3IDM2MiAxNDggMzYzIDE0OCAzNjRDMTQ5IDM2NSAxMzkgMzY1IDEzNyAzNjRaTTE1NCAzNjRDMTUzIDM2NCAxNTMgMzQ0IDE1MyAzNDRDMTU0IDM0NCAxNTYgMzQ2IDE1OSAzNDlDMTY1IDM1NSAxNjcgMzU1IDE2NyAzNDlDMTY3IDM0NSAxNjkgMzQxIDE2OSAzNDRDMTcwIDM2NSAxNzAgMzY2IDE2MyAzNTlDMTU4IDM1MyAxNTYgMzU0IDE1NiAzNjFDMTU2IDM2NCAxNTUgMzY2IDE1NCAzNjRaTTE3NSAzNjRDMTc1IDM2MyAxNzcgMzU5IDE3OCAzNTZDMTgyIDM0OCAxODIgMzQ2IDE3NyAzNDZDMTcyIDM0NSAxNzQgMzQ0IDE4MCAzNDNDMTg5IDM0MyAxODkgMzQzIDE4MyAzNTRDMTc5IDM2MCAxODAgMzYyIDE4NSAzNjJDMTg4IDM2MiAxODkgMzY0IDE4NyAzNjRDMTgyIDM2NSAxNzUgMzY0IDE3NSAzNjRaTTE5MyAzNjRDMTkzIDM2NCAxOTMgMzU5IDE5MyAzNTRDMTkzIDM0MyAxOTMgMzQyIDIwMSAzNDNDMjA2IDM0NCAyMDYgMzQ2IDIwMiAzNDZDMTk4IDM0NiAxOTUgMzQ4IDE5NiAzNTBDMTk3IDM1MSAxOTggMzUxIDIwMCAzNTFDMjAyIDM1MSAyMDMgMzUyIDIwMyAzNTNDMjA0IDM1NSAyMDIgMzU2IDE5OSAzNTZDMTk3IDM1NiAxOTYgMzYxIDE5OCAzNjFDMTk5IDM2MSAxOTkgMzYxIDIwMCAzNjJDMjAxIDM2MiAyMDIgMzYyIDIwMyAzNjJDMjA0IDM2MiAyMDUgMzYzIDIwNSAzNjNDMjA1IDM2NSAxOTUgMzY1IDE5MyAzNjRaTTIxMCAzNTVMMjEwIDM0NEwyMTUgMzQ5QzIyMiAzNTYgMjIzIDM1NiAyMjMgMzQ5QzIyNCAzNDAgMjI1IDM0MyAyMjYgMzU0TDIyNiAzNjRMMjIwIDM1OUMyMTQgMzUyIDIxMyAzNTIgMjEzIDM2MEMyMTIgMzcwIDIxMCAzNjYgMjEwIDM1NVpNMjQzIDM2M0MyMzkgMzYwIDIzOSAzNTkgMjM5IDM1NEMyMzkgMzQ2IDI0OCAzNDAgMjU0IDM0NEMyNTcgMzQ3IDI1NiAzNDggMjUyIDM0N0MyNDQgMzQ0IDIzOCAzNTQgMjQ0IDM2MEMyNDcgMzYyIDI0OCAzNjIgMjUyIDM2MkwyNTYgMzYxTDI1NCAzNjNDMjUxIDM2NiAyNDcgMzY2IDI0MyAzNjNaTTI2NSAzNjRDMjU2IDM1OSAyNTggMzQ1IDI2OCAzNDNDMjc4IDM0MiAyODQgMzU0IDI3NyAzNjFDMjczIDM2NSAyNjkgMzY2IDI2NSAzNjRaTTMwMyAzNjRDMzAyIDM2NCAzMDIgMzYyIDMwMiAzNjFDMzAyIDM1OCAzMDAgMzU2IDI5OSAzNThDMjk2IDM2NCAyOTUgMzY0IDI5MiAzNjBDMjg5IDM1NiAyODggMzU2IDI4OCAzNjBDMjg4IDM2MiAyODcgMzY0IDI4NiAzNjRDMjg0IDM2NCAyODQgMzYzIDI4NCAzNTVDMjg0IDM0NCAyODUgMzQzIDI4OSAzNTFDMjk0IDM1OCAyOTUgMzU4IDMwMCAzNTFDMzA1IDM0MyAzMDUgMzQzIDMwNSAzNTRDMzA1IDM2MyAzMDQgMzY2IDMwMyAzNjRaTTMzMCAzNjJDMzI4IDM2MCAzMjggMzU5IDMyOCAzNTJDMzI5IDM0MiAzMzAgMzQyIDMzMSAzNTJDMzMyIDM2MSAzMzIgMzYyIDMzNiAzNjJDMzM5IDM2MiAzNDEgMzU5IDM0MSAzNTBDMzQxIDM0MCAzNDMgMzQxIDM0NCAzNTFDMzQ0IDM2MyAzMzYgMzcwIDMzMCAzNjJaTTM1NCAzNjRDMzUzIDM2NCAzNTMgMzYxIDM1MyAzNThDMzUzIDM0OSAzNTIgMzQ3IDM0OSAzNDZDMzQ1IDM0NSAzNDggMzQ0IDM1NCAzNDNDMzYxIDM0MyAzNjMgMzQ0IDM1OSAzNDdDMzU3IDM0NyAzNTYgMzQ4IDM1NiAzNTZDMzU2IDM2NCAzNTUgMzY2IDM1NCAzNjRaTTM2NSAzNjFDMzY1IDM1OCAzNjUgMzU0IDM2NSAzNTBMMzY2IDM0NEwzNzAgMzQzQzM3MyAzNDMgMzc2IDM0MyAzNzcgMzQ0QzM3OSAzNDQgMzc1IDM0NyAzNzIgMzQ2QzM3MSAzNDYgMzcwIDM0NiAzNjkgMzQ4QzM2OCAzNTAgMzY4IDM1MSAzNzMgMzUxQzM3NiAzNTIgMzc3IDM1NSAzNzQgMzU1QzM2NyAzNTUgMzY3IDM2MSAzNzMgMzYyQzM4MCAzNjMgMzc5IDM2NSAzNzEgMzY1TDM2NiAzNjVMMzY1IDM2MVpNMzkzIDM2NEMzOTIgMzYzIDM5MSAzNjEgMzkwIDM2MEMzODggMzU3IDM4NSAzNTggMzg1IDM2MUMzODUgMzYzIDM4NCAzNjQgMzgzIDM2NEMzODEgMzY0IDM4MiAzNDQgMzg1IDM0M0MzOTIgMzQyIDM5NyAzNDcgMzk0IDM1NEMzOTMgMzU3IDM5MyAzNTcgMzk0IDM2MEMzOTcgMzY1IDM5NiAzNjcgMzkzIDM2NFpNMzEwIDM1NEMzMTAgMzQzIDMxMCAzNDIgMzE3IDM0NEMzMjYgMzQ1IDMyNiAzNTcgMzE4IDM1N0MzMTUgMzU3IDMxMyAzNTkgMzEzIDM2MkMzMTMgMzYzIDMxMiAzNjQgMzEyIDM2NEMzMTAgMzY0IDMxMCAzNjIgMzEwIDM1NFpNMTI3IDM2MEMxMzAgMzU3IDEzMCAzNTAgMTI3IDM0OEMxMjQgMzQ2IDEyMCAzNDcgMTE5IDM1MEMxMTYgMzYwIDEyMCAzNjYgMTI3IDM2MFpNMjc0IDM2MEMyODIgMzU0IDI3MyAzNDIgMjY1IDM0OEMyNjAgMzUxIDI2MSAzNTkgMjY2IDM2MUMyNjkgMzYyIDI3MiAzNjIgMjc0IDM2MFpNMzE5IDM1M0MzMjAgMzUyIDMyMSAzNTEgMzIwIDM0OUMzMTkgMzQ1IDMxNCAzNDUgMzE0IDM1MEMzMTQgMzU0IDMxNSAzNTUgMzE5IDM1M1pNMzQzIDMyMEMzMjUgMzE3IDI5OSAzMDQgMjkxIDI5NEMyODIgMjgzIDI3OCAyNzkgMjc2IDI3NkMyNzUgMjc0IDI3NCAyNzIgMjczIDI3MkMyNzMgMjcyIDI3MiAyNzAgMjcxIDI2OEMyNjggMjYzIDI2NiAyNjMgMjYyIDI2OUMyNDggMjg4IDI0MSAyOTUgMjI4IDMwM0MyMTAgMzE1IDIwMCAzMTYgMTUyIDMxNkwxMTYgMzE2TDExNiAzMDlDMTE1IDMwMCAxMTcgMzAwIDk0IDMwNEM3OCAzMDYgNDUgMzA5IDQ0IDMwOUM0MyAzMDggNTUgMzA2IDgzIDMwMkMxMjAgMjk4IDExNyAyOTggMTE3IDMwOEwxMTcgMzE0TDE1NCAzMTRDMTk1IDMxNCAyMDMgMzEzIDIxNiAzMDhDMjM1IDMwMCAyNDkgMjg2IDI2MSAyNjVDMjY2IDI1NyAyNjkgMjU0IDI2OCAyNTlDMjY4IDI2MCAyNjggMjYxIDI2OSAyNjBDMjY5IDI1OSAyNzEgMjYyIDI3NCAyNjhDMjg4IDI5NyAzMTYgMzE2IDM0NyAzMThMMzU3IDMxOEwzNTggMzE1QzM2MCAzMTAgMzY3IDMwMyAzNjggMzA1QzM3MCAzMDkgMzcwIDMxNyAzNjggMzE3QzM2NiAzMTggMzY4IDMxOCAzNzEgMzE3QzM3OCAzMTcgMzgzIDMxNiAzOTEgMzEyTDM5OCAzMTBMMzk5IDI5MUw0MDAgMjcyTDQwMCAyOTFMNDAwIDMxMUwzOTEgMzE1QzM3OSAzMTkgMzU2IDMyMiAzNDMgMzIwWk0xMTUgMjY2QzExNSAyNjMgMTE0IDEzMSAxMTUgMTMwQzExNSAxMjkgMTgzIDEyOSAxOTYgMTMxQzIwMSAxMzIgMjA1IDEzMiAyMDUgMTMxQzIwNiAxMzEgMjA2IDEzMSAyMDYgMTMyQzIwNSAxMzMgMjA1IDEzMyAyMDcgMTMzQzIwOSAxMzIgMjEwIDEzMyAyMDkgMTMzQzIwOSAxMzQgMjEwIDEzNCAyMTEgMTM0QzIxMiAxMzMgMjEzIDEzNCAyMTMgMTM0QzIxMyAxMzQgMjE3IDEzNiAyMjAgMTM4QzIyNCAxNDAgMjMwIDE0MyAyMzMgMTQ1QzIzNiAxNDggMjM5IDE1MCAyMzkgMTQ5QzI0MCAxNDkgMjQwIDE0OSAyMzkgMTUwQzIzOSAxNTEgMjQ1IDE1NyAyNDYgMTU3QzI0OCAxNTcgMjU3IDE3MSAyNjIgMTgxQzI2NCAxODYgMjY3IDE5MCAyNjggMTkwQzI2OSAxOTAgMjcxIDE4NiAyNzEgMTg0QzI3MSAxODMgMjgwIDE2NyAyODQgMTYyQzI5MyAxNDkgMzE5IDEzMiAzMzMgMTI5QzMzNCAxMjkgMzM2IDEyOCAzMzYgMTI4QzMzNSAxMjggMzM3IDEyNyAzMzggMTI3QzM0MCAxMjcgMzQ3IDEyNyAzNTQgMTI3QzM2OSAxMjYgMzgwIDEyNyAzOTMgMTMxTDQwMCAxMzNMNDAwIDE1OUw0MDAgMTg0TDM5NiAxODVDMzkzIDE4NSAzOTMgMTg1IDM5MSAxODNDMzg5IDE4MCAzNzkgMTc1IDM3NyAxNzVDMzc3IDE3NSAzNzYgMTc1IDM3NiAxNzRDMzc1IDE3MyAzNTggMTcxIDM1MiAxNzFDMzMzIDE3NCAzMTkgMTg4IDMxMyAyMDlDMzExIDIxNiAzMTIgMjE2IDI5OCAyMjBDMjk0IDIyMSAyODUgMjIzIDI3OSAyMjVDMjczIDIyNyAyNjQgMjMwIDI1OSAyMzFDMjU0IDIzMiAyNTAgMjM0IDI0OCAyMzRDMjQzIDIzNiAyMjkgMjQwIDIyNiAyNDBMMjIzIDI0MEwyMjMgMjI5QzIyNCAyMTUgMjIzIDIwNCAyMTggMTk2QzIxNyAxOTUgMjE3IDE5NCAyMTYgMTkyQzIxNCAxODkgMjAzIDE3OCAyMDAgMTc4QzE5OCAxNzcgMTk3IDE3NiAxOTYgMTc2QzE5NCAxNzIgMTc1IDE2OSAxNzAgMTcyQzE2OSAxNzMgMTY2IDE3NCAxNjUgMTc1QzE2MSAxNzcgMTYwIDE4OSAxNjAgMjUwQzE2MCAyNTYgMTYwIDI1NiAxNTcgMjU2QzE1NSAyNTcgMTUxIDI1OCAxNDcgMjU5QzEzNCAyNjMgMTE1IDI2NyAxMTUgMjY2Wk0zMjEgMjU2QzMxNyAyNTEgMzEzIDI0MyAzMTUgMjQyQzMxNSAyNDIgMzIxIDIzOSAzMjggMjM3QzM2MiAyMjUgMzkwIDIxMyA0MzUgMTkxQzQ0NyAxODYgNDU3IDE4MSA0NTggMTgxQzQ1OCAxODIgNDEwIDIwNiA0MDggMjA2QzQwOCAyMDYgNDAyIDIwOCAzOTYgMjExQzM4OSAyMTQgMzc4IDIxOSAzNzEgMjIyQzM2NCAyMjUgMzU3IDIyOCAzNTYgMjI4QzM1NCAyMjkgMzUwIDIzMCAzNDggMjMxQzM0NiAyMzIgMzQwIDIzNCAzMzYgMjM2QzMzMyAyMzcgMzI2IDIzOSAzMjIgMjQxQzMxOSAyNDIgMzE1IDI0MyAzMTUgMjQ0QzMxNSAyNDQgMzE4IDI1MCAzMjIgMjU1QzMyNiAyNjEgMzI1IDI2MiAzMjEgMjU2WiIvPjxwYXRoIGlkPSJkelciIGQ9Ik0zMzggMzE3QzMxMCAzMTEgMjg3IDI5MyAyNzQgMjY4QzI3MSAyNjIgMjY5IDI1OSAyNjkgMjYwQzI2OCAyNjEgMjY4IDI2MCAyNjggMjU5QzI2OSAyNTQgMjY2IDI1NyAyNjEgMjY1QzI0OSAyODYgMjM1IDMwMCAyMTYgMzA4QzIwMyAzMTMgMTk1IDMxNCAxNTQgMzE0TDExNyAzMTRMMTE3IDMwOEMxMTcgMjk4IDExOSAyOTggODQgMzAyQzUxIDMwNiA0OSAzMDYgNjEgMzAzQzY2IDMwMiA3MyAzMDAgNzYgMjk5QzkyIDI5NSAxMTMgMjg5IDEzNiAyODJDMTQ5IDI3OCAxNjggMjczIDE3OCAyNzBDMTg4IDI2NyAyMDggMjYxIDIyMiAyNTdDMjM3IDI1MiAyNTQgMjQ3IDI2MiAyNDVDMjc0IDI0MSAzMDEgMjMzIDMyOCAyMjVDMzQ5IDIxOCA0MDcgMTk4IDQ0MiAxODZDNDUxIDE4MyA0NTggMTgwIDQ1OSAxODBDNDU5IDE4MCA0NTQgMTgyIDQ0OCAxODVDNDQyIDE4OCA0MjggMTk1IDQxNyAyMDBDMzg3IDIxNCAzNTcgMjI3IDMyOCAyMzdDMzEzIDI0MiAzMTMgMjQyIDMxNiAyNDhDMzI4IDI3NCAzNjQgMjgyIDM4OSAyNjZDMzkzIDI2MyAzOTcgMjYxIDM5OCAyNjBDNDAxIDI1NiA0MDEgMjYwIDQwMSAyODZMNDAxIDMxMEw0MDAgMjkxTDQwMCAyNzJMMzk5IDI5MUwzOTggMzEwTDM5MSAzMTJDMzgzIDMxNiAzNzggMzE3IDM3MSAzMTdDMzY4IDMxOCAzNjYgMzE4IDM2OCAzMTdDMzcwIDMxNyAzNzAgMzA5IDM2OCAzMDVDMzY3IDMwMyAzNjAgMzEwIDM1OCAzMTVDMzU3IDMxOCAzNDkgMzE5IDMzOCAzMTdaTTIwOSAxMzRDMjA3IDEzMiAxODkgMTMwIDE2NSAxMzBDMTUxIDEzMCAxMzcgMTI5IDEzNCAxMjlDMTI0IDEyOCAxNTkgMTI4IDE4MSAxMjlDMTk4IDEzMCAyMjAgMTMzIDIxMSAxMzRDMjEwIDEzNCAyMDkgMTM0IDIwOSAxMzRaTTMzMSAxMjlDMzQwIDEyNSAzNzAgMTI0IDM4MCAxMjdDMzgyIDEyOCAzODEgMTI4IDM3NyAxMjdDMzY3IDEyNiAzNDQgMTI3IDMzNyAxMjhDMzI5IDEzMCAzMjcgMTMwIDMzMSAxMjlaIi8+PC9kZWZzPjxjaXJjbGUgY3g9IjI1Ny4wIiBjeT0iMjU3LjAiIHI9IjI1NS41IiBmaWxsPSIjZGNkY2RjIi8+PGNpcmNsZSBjeD0iMjU3LjAiIGN5PSIyNTcuMCIgcj0iMjUxLjAiIGZpbGw9IiNmNWM1M2YiLz48Y2lyY2xlIGN4PSIyNTcuMCIgY3k9IjI1Ny4wIiByPSIyNDQuNSIgZmlsbD0iIzViMTIwNiIvPjxjaXJjbGUgY3g9IjI1Ny4wIiBjeT0iMjU3LjAiIHI9IjIzOC41IiBmaWxsPSJ1cmwoI2R6bykiLz48dXNlIHhsaW5rOmhyZWY9IiNkekQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDMsNSkiIGZpbGw9IiMwMDAiIG9wYWNpdHk9Ii4zNSIvPjx1c2UgeGxpbms6aHJlZj0iI2R6VyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMyw1KSIgZmlsbD0iIzAwMCIgb3BhY2l0eT0iLjM1Ii8+PHVzZSB4bGluazpocmVmPSIjZHpEIiBmaWxsPSJ1cmwoI2R6ZCkiLz48dXNlIHhsaW5rOmhyZWY9IiNkelciIGZpbGw9InVybCgjZHp3KSIvPjwvc3ZnPg==";
+if(typeof document!=='undefined'){document.querySelectorAll('img.logo').forEach(i=>i.src=LOGO);document.getElementById('fav').href=LOGO;document.getElementById('fav2').href=LOGO;}
+
+/* ================= CALC CORE (pure, testable) =================
+   Salesperson pay (per person, on own month revenue, refunds nikal kar):
+     - pehli slab se neeche: revenue x under% (default 2%)
+     - slab touch hote hi fixed amount: 10L 40k, 12L 50k, 15L 62k, 17L 70k, 19L 80k, 21L 1,00,000 (editable)
+   Yousuf: poori sale (salesperson + company customer) ka you% (default 3)
+   Company customer (direct/repeat): koi pay nahi, sirf Yousuf cut
+   Net profit = Gross - Yousuf - Salesperson pay - Fixed kharche (standing + is mahine ke extra)
+*/
+window.DZ=(function(){
+  const COMPANY='company',ORPHAN='_orphan';
+  const DEF_SLABS=[{min:1000000,pay:40000},{min:1200000,pay:50000},{min:1500000,pay:62000},{min:1700000,pay:70000},{min:1900000,pay:80000},{min:2100000,pay:100000}];
+  const num=(v,d)=>{const n=Number(v);return Number.isFinite(n)?n:d;};
+  const sum=(arr,k)=>arr.reduce((a,s)=>a+(+s[k]||0),0);
+  function cfgOf(S){
+    const c=(S&&S.cfg)||{};
+    let raw=c.slabs;
+    if(raw&&!Array.isArray(raw)&&typeof raw==='object')raw=Object.values(raw);
+    let slabs=(Array.isArray(raw)?raw:[]).map(s=>s?{min:num(s.min,0),pay:num(s.pay,0)}:null).filter(s=>s&&s.min>0);
+    if(!slabs.length)slabs=DEF_SLABS.map(s=>Object.assign({},s));
+    slabs.sort((a,b)=>a.min-b.min);
+    return {you:Math.max(0,num(c.you,3)),under:Math.max(0,num(c.under,2)),slabs};
+  }
+  function payFor(rev,cfg){
+    let slab=null;
+    for(const s of cfg.slabs){if(rev>=s.min)slab=s;}
+    if(slab)return {pay:slab.pay,slab,mode:'slab'};
+    return {pay:Math.max(0,rev)*cfg.under/100,slab:null,mode:'pct'};
+  }
+  function nextSlab(rev,cfg){return cfg.slabs.find(s=>rev<s.min)||null;}
+  function personCalc(p,sales,cfg){
+    const active=sales.filter(s=>!s.refunded),refunded=sales.filter(s=>s.refunded);
+    const revenue=sum(active,'price'),cost=sum(active,'cost'),gp=revenue-cost;
+    const isCo=p.id===COMPANY;
+    const pr=isCo?{pay:0,slab:null,mode:'none'}:payFor(revenue,cfg);
+    const yousuf=revenue*cfg.you/100;
+    const net=gp-pr.pay-yousuf;
+    return {id:p.id,name:p.name,isCompany:isCo,active:p.active!==false,sales,activeSales:active,refunded,units:active.length,
+      revenue,cost,gp,pay:pr.pay,payMode:pr.mode,slab:pr.slab,next:isCo?null:nextSlab(revenue,cfg),yousuf,net,
+      margin:revenue>0?gp/revenue*100:0,netPct:revenue>0?net/revenue*100:0,perUnit:active.length?net/active.length:0,refundSum:sum(refunded,'price'),share:0};
+  }
+  function peopleList(S){return Object.entries((S&&S.people)||{}).map(([id,v])=>Object.assign({id},v||{})).sort((a,b)=>((a.order||0)-(b.order||0))||String(a.name||'').localeCompare(String(b.name||'')));}
+  function salesOf(S,ym){return Object.entries((((S&&S.sales)||{})[ym])||{}).map(([id,v])=>Object.assign({id,ym},v||{})).sort((a,b)=>(a.date<b.date?1:a.date>b.date?-1:0)||((b.createdAt||0)-(a.createdAt||0)));}
+  function companyCalc(ym,S){
+    const cfg=cfgOf(S);
+    const salesAll=salesOf(S,ym);
+    const people=peopleList(S);
+    const rows=[];const seen=new Set([COMPANY]);
+    for(const p of people){
+      const mine=salesAll.filter(s=>s.person===p.id);const act=p.active!==false;
+      if(!act&&!mine.length)continue;
+      seen.add(p.id);
+      rows.push(personCalc({id:p.id,name:p.name||'—',active:act},mine,cfg));
+    }
+    const orphans=salesAll.filter(s=>!seen.has(s.person));
+    if(orphans.length)rows.push(personCalc({id:ORPHAN,name:'Hataya gaya salesperson',active:false},orphans,cfg));
+    const company=personCalc({id:COMPANY,name:'Company ka apna customer',active:true},salesAll.filter(s=>s.person===COMPANY),cfg);
+    const all=rows.concat([company]);
+    const tot=k=>all.reduce((a,r)=>a+r[k],0);
+    const revenue=tot('revenue'),cost=tot('cost'),gp=tot('gp'),units=tot('units'),refundSum=tot('refundSum');
+    const refundCount=all.reduce((a,r)=>a+r.refunded.length,0);
+    const yousuf=tot('yousuf');
+    const teamPay=rows.reduce((a,r)=>a+r.pay,0);
+    const fixedItems=Object.entries((S&&S.fixed)||{}).map(([id,v])=>Object.assign({id},v||{})).sort((a,b)=>(a.order||0)-(b.order||0));
+    const fixedStanding=sum(fixedItems,'amount');
+    const mxItems=Object.entries((((S&&S.monthExp)||{})[ym])||{}).map(([id,v])=>Object.assign({id},v||{})).sort((a,b)=>(a.order||0)-(b.order||0));
+    const monthExtra=sum(mxItems,'amount');
+    const fixedTotal=fixedStanding+monthExtra;
+    const contribution=gp-yousuf-teamPay;
+    const net=contribution-fixedTotal;
+    const coverage=fixedTotal>0?contribution/fixedTotal*100:(contribution>=0?100:0);
+    const remaining=Math.max(0,fixedTotal-contribution);
+    const margin=revenue>0?gp/revenue*100:0;
+    const netPct=revenue>0?net/revenue*100:0;
+    const effMargin=revenue>0?(gp/revenue)-(cfg.you/100)-(cfg.under/100):null;
+    const beRevenue=(remaining>0&&effMargin!=null&&effMargin>0)?remaining/effMargin:null;
+    const posSum=rows.reduce((a,r)=>a+(r.net>0?r.net:0),0);
+    rows.forEach(r=>{r.share=posSum>0&&r.net>0?r.net/posSum*100:0;});
+    const graded=rows.filter(r=>r.id!==ORPHAN&&r.active);
+    const byNet=graded.slice().sort((a,b)=>b.net-a.net);
+    const byPct=graded.filter(r=>r.revenue>0).sort((a,b)=>b.netPct-a.netPct);
+    return {ym,cfg,you:cfg.you,rows,company,all,sales:salesAll,revenue,cost,gp,units,refundSum,refundCount,yousuf,teamPay,
+      fixedItems,fixedStanding,mxItems,monthExtra,fixedTotal,contribution,net,coverage,remaining,margin,netPct,effMargin,beRevenue,byNet,byPct,salesCount:graded.length};
+  }
+  function monthsWithData(S){const set=new Set([...Object.keys((S&&S.sales)||{}),...Object.keys((S&&S.monthExp)||{}),...Object.keys((S&&S.targets)||{})]);return [...set].filter(k=>/^\d{4}-\d{2}$/.test(k)).sort();}
+  /* ----- target planner ----- */
+  function plan(R,m,you,n,F,cfg){
+    R=Math.max(0,+R||0);n=Math.max(0,Math.round(+n||0));
+    const per=n>0?R/n:0;const pr=n>0?payFor(per,cfg):{pay:0,slab:null,mode:'none'};
+    const pay=pr.pay*n,gp=R*m/100,yz=R*you/100;
+    return {R,m,you,n,F,per,payEach:pr.pay,slab:pr.slab,payMode:pr.mode,pay,gp,yousuf:yz,net:gp-yz-pay-F};
+  }
+  function solveRevenue(N,m,you,n,F,cfg){
+    const step=Math.max(10000,n*10000),max=2e9;let prev=0;
+    for(let R=step;R<=max;R+=step){
+      if(plan(R,m,you,n,F,cfg).net>=N){
+        let lo=prev,hi=R;
+        for(let i=0;i<40;i++){const mid=(lo+hi)/2;if(plan(mid,m,you,n,F,cfg).net>=N)hi=mid;else lo=mid;}
+        const r=Math.ceil(hi/1000)*1000;
+        return plan(r,m,you,n,F,cfg).net>=N?r:Math.ceil(hi);
+      }
+      prev=R;
+    }
+    return null;
+  }
+  function solveMargin(N,R,you,n,F,cfg){if(!(R>0))return null;const base=plan(R,0,you,n,F,cfg).net;return (N-base)/R*100;}
+  return {COMPANY,ORPHAN,DEF_SLABS,cfgOf,payFor,nextSlab,personCalc,companyCalc,peopleList,salesOf,monthsWithData,plan,solveRevenue,solveMargin};
+})();
+</script>
+
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import {getDatabase,ref,set,push,remove,update,onValue} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+const FC={
+  apiKey:"AIzaSyAYFIvdk8lfof6r59TKecMSDPnFqQWpr4s",
+  authDomain:"denzen-sales.firebaseapp.com",
+  databaseURL:"https://denzen-sales-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId:"denzen-sales",
+  storageBucket:"denzen-sales.firebasestorage.app",
+  messagingSenderId:"893728954333",
+  appId:"1:893728954333:web:3f0d07405669dd9ed78834"
+};
+const db=getDatabase(initializeApp(FC));
+const ROOT='netprofit';
+const PASSWORD='2026';
+const SEED_PEOPLE=['Daniyal','Asher','Ahmed Ali','Waqas','Hassan'];
+const DZ=window.DZ,CO=DZ.COMPANY;
+const YOU_OPTS=[0,1,1.5,2,2.5,3,3.5,4,5];
+const ICON={
+  trash:'<svg class="i" viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M9 7V4h6v3"/><path d="M6 7l1 13h10l1-13"/></svg>',
+  edit:'<svg class="i" viewBox="0 0 24 24"><path d="M4 20h4l10-10-4-4L4 16v4z"/><path d="M12 8l4 4"/></svg>',
+  refund:'<svg class="i" viewBox="0 0 24 24"><path d="M9 14l-4-4 4-4"/><path d="M5 10h9a5 5 0 0 1 0 10h-3"/></svg>'
+};
+
+/* ---------- state ---------- */
+let S={cfg:{},people:{},fixed:{},monthExp:{},sales:{},targets:{}};
+let LOADED=false,SEEDED=false;
+let MONTH=today().slice(0,7);
+let VIEW='home';
+let Q='',EDIT=null,GRADE='net',HIST_ALL=false,SETUP_DIRTY=false;
+let PLAN=null;
+
+/* ---------- helpers ---------- */
+const $=id=>document.getElementById(id);
+const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const MONF=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const DOW=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+function today(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function daysInMonth(ym){const [y,m]=ym.split('-').map(Number);return new Date(y,m,0).getDate();}
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const rs=n=>(n<0?'−Rs ':'Rs ')+Math.round(Math.abs(n)).toLocaleString('en-IN');
+function trim(x){return x.replace(/\.?0+$/,'');}
+const rsL=n=>Math.abs(n)>=100000?(n<0?'−':'')+'Rs '+trim((Math.abs(n)/100000).toFixed(2))+' L':rs(n);
+const lacs=n=>trim((n/100000).toFixed(2))+' L';
+const shortN=n=>{const a=Math.abs(n),s=n<0?'−':'';if(a>=100000)return s+trim((a/100000).toFixed(1))+'L';if(a>=1000)return s+Math.round(a/1000)+'k';return s+Math.round(a);};
+const pct=n=>(Math.round(n*10)/10).toLocaleString('en-IN')+'%';
+const round1=n=>Math.round(n*10)/10;
+const fmtD=d=>d?(+d.slice(8,10))+' '+MON[+d.slice(5,7)-1]:'';
+const fmtDL=d=>{if(!d)return'';const dt=new Date(+d.slice(0,4),+d.slice(5,7)-1,+d.slice(8,10));return DOW[dt.getDay()]+', '+fmtD(d);};
+const monthLabel=ym=>MONF[+ym.slice(5,7)-1]+' '+ym.slice(0,4);
+const monthShort=ym=>MON[+ym.slice(5,7)-1]+' '+ym.slice(2,4);
+const initials=n=>String(n||'?').split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase();
+const sgn=n=>n>0?'pos':n<0?'neg':'';
+function shiftMonth(ym,d){const [y,m]=ym.split('-').map(Number);const dt=new Date(y,m-1+d,1);return dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0');}
+function sync(t){$('sync').textContent=t;}
+function targetOf(ym){const t=(S.targets||{})[ym];return t&&+t.net>0?t:null;}
+
+/* toast */
+let _tt=null;
+function toast(msg,err){const t=$('toast');t.textContent=msg;t.className='toast on'+(err?' err':'');clearTimeout(_tt);_tt=setTimeout(()=>t.classList.remove('on'),2400);}
+
+/* modal */
+function modal({title,body='',ok='OK',cancel='Cancel',danger=false}){
+  return new Promise(res=>{
+    const ov=$('ov'),md=$('md');
+    md.innerHTML=`<h3>${esc(title)}</h3>${body}<div class="macts"><button class="btn btn-ghost" id="md-c">${esc(cancel)}</button><button class="btn ${danger?'btn-danger':'btn-primary'}" id="md-o">${esc(ok)}</button></div>`;
+    ov.classList.add('on');
+    const close=v=>{ov.classList.remove('on');md.innerHTML='';res(v);};
+    $('md-c').onclick=()=>close(false);
+    $('md-o').onclick=()=>close(true);
+    ov.onclick=e=>{if(e.target===ov)close(false);};
+    setTimeout(()=>{const f=md.querySelector('input,select');(f||$('md-o')).focus();},30);
+  });
+}
+
+/* ---------- auth / theme ---------- */
+function login(){
+  if($('pw').value.trim()===PASSWORD){sessionStorage.setItem('dz_np_ok','1');start();}
+  else{$('pwerr').textContent='Password ghalat hai';$('pw').value='';$('pw').focus();}
+}
+$('pwbtn').onclick=login;
+$('pw').addEventListener('keydown',e=>{if(e.key==='Enter')login();});
+function isLight(){return document.documentElement.dataset.theme==='light';}
+function themeUI(){const l=isLight();$('ic-sun').hidden=l;$('ic-moon').hidden=!l;document.querySelector('meta[name=theme-color]').content=l?'#F3F0E8':'#0B1411';}
+function toggleTheme(){const l=isLight();document.documentElement.dataset.theme=l?'dark':'light';try{localStorage.setItem('dz_np2_theme',l?'dark':'light');}catch(e){}themeUI();render();}
+$('b-theme').onclick=toggleTheme;
+themeUI();
+
+/* ---------- firebase ---------- */
+function start(){
+  $('login').style.display='none';
+  $('f-date').value=today();
+  bindForm();
+  onValue(ref(db,ROOT),snap=>{
+    const v=snap.val();
+    if(!v){ if(!SEEDED){SEEDED=true;seed();} return; }
+    S={cfg:v.cfg||{},people:v.people||{},fixed:v.fixed||{},monthExp:v.monthExp||{},sales:v.sales||{},targets:v.targets||{}};
+    LOADED=true;sync('Net profit · synced');render();
+  },err=>{sync('offline');toast('Firebase se connect nahi ho raha',true);console.error(err);});
+}
+function seed(){
+  const people={};SEED_PEOPLE.forEach((n,i)=>{people['p'+(i+1)]={name:n,active:true,order:i+1,createdAt:Date.now()};});
+  set(ref(db,ROOT),{cfg:{you:3,under:2,slabs:DZ.DEF_SLABS},people}).catch(e=>{toast('Setup save nahi hua',true);console.error(e);});
+}
+async function w(fn,msg){try{await fn();if(msg)toast(msg);}catch(e){console.error(e);toast('Save nahi hua — internet check karein',true);}}
+
+/* ---------- month nav ---------- */
+function setMonth(ym){if(!/^\d{4}-\d{2}$/.test(ym))return;MONTH=ym;render();}
+$('m-prev').onclick=()=>setMonth(shiftMonth(MONTH,-1));
+$('m-next').onclick=()=>setMonth(shiftMonth(MONTH,1));
+$('m-lbl').onclick=()=>{const i=$('m-in');i.value=MONTH;try{i.showPicker?i.showPicker():i.focus();}catch(e){i.focus();}};
+$('m-in').onchange=e=>{if(e.target.value)setMonth(e.target.value);};
+
+/* ---------- navigation ---------- */
+function go(v){
+  VIEW=v;
+  document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));
+  document.querySelectorAll('nav.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
+  $('b-setup').classList.toggle('on',v==='setup');
+  if(v!=='add'&&EDIT)cancelEdit(false);
+  window.scrollTo({top:0});
+  render();
+}
+document.querySelectorAll('nav.tabs button').forEach(b=>b.onclick=()=>go(b.dataset.v));
+$('b-setup').onclick=()=>go(VIEW==='setup'?'home':'setup');
+
+/* ---------- render ---------- */
+function render(){
+  $('m-lbl').textContent=monthLabel(MONTH);
+  if(!LOADED)return;
+  const C=DZ.companyCalc(MONTH,S);
+  if(VIEW==='home')renderHome(C);
+  else if(VIEW==='sales')renderSales(C);
+  else if(VIEW==='team')renderTeam(C);
+  else if(VIEW==='target')renderTarget(C);
+  else if(VIEW==='setup'){ if(document.activeElement&&$('v-setup').contains(document.activeElement))SETUP_DIRTY=true; else renderSetup(C); }
+  fillPersonSelect();
+}
+$('v-setup').addEventListener('focusout',()=>{setTimeout(()=>{if(SETUP_DIRTY&&!(document.activeElement&&$('v-setup').contains(document.activeElement))){SETUP_DIRTY=false;renderSetup(DZ.companyCalc(MONTH,S));}},60);});
+
+function lrow(label,val,op,cls,sub){return `<div class="lrow"><div class="l">${op?`<span class="op">${op}</span>`:''}<span>${label}</span></div><div class="v ${cls||''}">${val}${sub?`<small>${sub}</small>`:''}</div></div>`;}
+function ring(p,cls){const r=42,c=2*Math.PI*r;const v=Math.max(0,Math.min(100,+p||0));return `<div class="ring"><svg viewBox="0 0 96 96"><circle class="bg" cx="48" cy="48" r="${r}"/><circle class="fg ${cls||''}" cx="48" cy="48" r="${r}" stroke-dasharray="${c.toFixed(1)}" stroke-dashoffset="${(c*(1-v/100)).toFixed(1)}"/></svg><b>${Math.round(Math.max(0,+p||0))}%</b></div>`;}
+function personName(id,C){if(id===CO)return 'Company customer';const r=C.rows.find(x=>x.id===id);if(r)return r.name;const p=S.people[id];return p?p.name:'—';}
+function payBreak(C){const l=C.rows.filter(r=>r.pay>0).map(r=>`${esc(r.name)} ${shortN(r.pay)}${r.payMode==='pct'?' ('+pct(C.cfg.under)+')':''}`);return l.length?l.join(', '):'abhi kisi ki pay nahi bani';}
+
+/* ===== TARGET PROGRESS ===== */
+function targetProgress(ym,C,T){
+  const dim=daysInMonth(ym),nowYm=today().slice(0,7);
+  const dayN=ym<nowYm?dim:ym>nowYm?0:+today().slice(8,10);
+  const elapsed=dayN/dim*100;
+  const tnet=+T.net||0,trev=+T.revenue||0;
+  const ach=tnet>0?C.net/tnet*100:0;
+  const f=dayN>0?dim/dayN:0;
+  let projRev=0,projGp=0,projPay=0;
+  C.all.forEach(r=>{const rv=r.revenue*f;projRev+=rv;projGp+=r.gp*f;if(!r.isCompany)projPay+=DZ.payFor(rv,C.cfg).pay;});
+  const projNet=projGp-projRev*C.you/100-projPay-C.fixedTotal;
+  const revAch=trev>0?C.revenue/trev*100:0;
+  const left=dim-dayN,gap=tnet-C.net,revGap=Math.max(0,trev-C.revenue);
+  let st,short,cls,line1,line2;
+  if(dayN===0){st='future';short='Aane wala';cls='';line1=`${monthLabel(ym)} shuru hone par progress yahan aayegi.`;line2=`Plan: ${rsL(trev)} sale, margin ${pct(+T.margin||0)}, Yousuf ${pct(+T.you||0)}.`;}
+  else if(C.net>=tnet){st='done';short='Poora ✓';cls='pos';line1=`Target poora — ${rs(C.net-tnet)} upar.`;line2=dayN<dim?`Abhi ${left} din baaki hain, is se aage sab bonus.`:'Mahina mukammal.';}
+  else if(dayN>=dim){st='missed';short='Reh gaya';cls='neg';line1=`${rs(gap)} kam reh gaya — target ka ${Math.round(ach)}% hua.`;line2=`Sale ${rsL(C.revenue)} vs plan ${rsL(trev)}.`;}
+  else{const ahead=projNet>=tnet;st=ahead?'ahead':'behind';short=ahead?'Track par':'Peeche';cls=ahead?'gold':'amber';
+    line1=`Din ${dayN}/${dim} (${Math.round(elapsed)}% waqt) — net ka ${Math.round(Math.max(0,ach))}% ho gaya, ${rs(gap)} door.`;
+    line2=`Is raftaar se mahine ke end tak: ${rs(projNet)} (target ka ${Math.round(tnet>0?projNet/tnet*100:0)}%). Baaki ${left} din mein rozana ~${rsL(revGap/Math.max(1,left))} sale chahiye.`;}
+  return {dim,dayN,elapsed,ach,projRev,projNet,revAch,left,gap,revGap,st,short,cls,line1,line2,per:+T.per||((+T.n)?trev/(+T.n):0)};
+}
+
+/* ===== HOME ===== */
+function renderHome(C){
+  const T=targetOf(MONTH);
+  const has=C.units>0||C.refundCount>0;
+  const nc=sgn(C.net);
+  const hero=`<div class="hero ${nc}">
+    <div class="hero-top"><span class="eyebrow">Net profit · ${monthShort(MONTH)}</span><span class="tag ${nc}">${has?(C.net>0?'Munafa':C.net<0?'Nuqsaan':'Barabar'):'Koi sale nahi'}</span></div>
+    <div class="hero-big">${rs(C.net)}</div>
+    <div class="hero-sub">${has?`Net margin ${pct(C.netPct)} — Yousuf ${pct(C.you)}, salesperson pay aur fixed kharche nikal kar`:'Add (+) par jaa kar pehli sale likhein — hisaab khud ho jayega'}</div>
+    <div class="stats">
+      <div><span>Total sale</span><b>${rsL(C.revenue)}</b><small>${C.units} laptop${C.units===1?'':'s'}${C.refundCount?`, ${C.refundCount} refund`:''}</small></div>
+      <div><span>Gross profit</span><b class="gold">${rsL(C.gp)}</b><small>margin ${pct(C.margin)}</small></div>
+      <div><span>Kul kharche</span><b>${rsL(C.yousuf+C.teamPay+C.fixedTotal)}</b><small>Yousuf, team, fixed</small></div>
+    </div></div>`;
+
+  const covW=Math.min(100,Math.max(0,C.coverage));
+  const done=C.fixedTotal>0&&C.remaining<=0;
+  const cover=`<div class="card">
+    <div class="card-h"><h2>Fixed kharche cover</h2><span class="k">Total ${rs(C.fixedTotal)}</span></div>
+    <div class="cov-big">${C.fixedTotal===0?`<b class="mut">—</b><span>Setup mein fixed kharche add karein</span>`:done?`<b class="pos">Poore cover ✓</b><span>ab har rupee net profit hai</span>`:`<b class="amber">${rs(C.remaining)}</b><span>abhi baaki — jaise profit aayega, ye kam hoga</span>`}</div>
+    <div class="cover ${done?'done':''}"><i style="width:${covW}%"></i></div>
+    <div class="cov-row"><span class="pos">${rs(Math.min(Math.max(C.contribution,0),C.fixedTotal))} cover (${Math.round(Math.max(0,Math.min(100,C.coverage)))}%)</span><span class="${done?'pos':'amber'}">${done?`${rs(C.net)} upar`:`${rs(C.remaining)} baaki`}</span></div>
+    <p class="hint">${C.fixedTotal===0?'Rent, bijli, Yousuf ki fixed salary waghaira Setup → Fixed kharche mein likhein, phir ye bar chalega.':done?`Fixed kharche ${rs(C.fixedTotal)} poore ho gaye — ab is mahine ki har sale ka contribution seedha net profit hai.`:
+      C.beRevenue?`Break-even tak andazan <b>${rsL(C.beRevenue)}</b> aur sale chahiye (abhi ke margin ${pct(C.margin)}, Yousuf ${pct(C.you)} aur ${pct(C.cfg.under)} pay ke hisaab se).`:C.revenue>0?'Abhi ke margin par break-even mushkil hai — cost ya kharche dekhein.':'Sale add karte jayein — gross profit se Yousuf aur salesperson pay nikal kar jo bachta hai, wo yahan fixed kharche cover karta jata hai.'}</p>
+  </div>`;
+
+  let tcard;
+  if(T){const P=targetProgress(MONTH,C,T);tcard=`<div class="card raised" style="cursor:pointer" onclick="A.go('target')">
+    <div class="card-h"><h2>Target</h2><span class="tag ${P.cls}">${P.short}</span></div>
+    <div class="tgt">${ring(P.ach,P.cls)}<div class="tx"><b>${rs(C.net)} <span class="mut" style="font-weight:600">/ ${rs(+T.net)}</span></b><p>${P.line1}</p><p>${P.line2}</p></div></div>
+  </div>`;}
+  else tcard=`<div class="card" style="display:flex;justify-content:space-between;align-items:center;gap:10px"><div><b style="font-weight:800">Is mahine ka target</b><div class="hint" style="margin-top:2px">Abhi set nahi — Target tab mein net likhein, plan ban jayega.</div></div><button class="link" onclick="A.go('target')">Set karein</button></div>`;
+
+  const ledger=`<div class="card">
+    <div class="card-h"><h2>Paisa kahan gaya</h2><span class="k">${monthLabel(MONTH)}</span></div>
+    ${lrow('Total sale',rs(C.revenue),'','',`${C.units} laptops${C.refundCount?`, ${C.refundCount} refund`:''}`)}
+    ${lrow('Laptop cost',rs(C.cost),'−','mut')}
+    <div class="lrow sub"><div class="l"><span class="op">=</span><span>Gross profit</span></div><div class="v gold">${rs(C.gp)}<small>margin ${pct(C.margin)}</small></div></div>
+    ${lrow(`Yousuf ${pct(C.you)}`,rs(C.yousuf),'−','mut','poori sale par')}
+    ${lrow('Salesperson pay',rs(C.teamPay),'−','mut',payBreak(C))}
+    ${lrow('Fixed kharche',rs(C.fixedTotal),'−','mut',C.monthExtra?`${rs(C.fixedStanding)} fixed + ${rs(C.monthExtra)} is mahine ke extra`:'')}
+    <div class="lrow total"><div class="l"><span class="op">=</span><span>Net profit</span></div><div class="v ${nc}">${rs(C.net)}<small>net margin ${pct(C.netPct)}</small></div></div>
+  </div>`;
+
+  const team=`<div class="card">
+    <div class="card-h"><h2>Team</h2><button class="link" onclick="A.go('team')">Boxes &amp; grading</button></div>
+    ${C.rows.length?C.rows.map(r=>`<div class="lrow click" onclick="A.goPerson('${esc(r.id)}')"><div class="l"><span class="ava" style="width:32px;height:32px;font-size:13px">${initials(r.name)}</span><span>${esc(r.name)}<small>${r.units} laptop${r.units===1?'':'s'} · ${rsL(r.revenue)} sale</small></span></div><div class="v ${sgn(r.net)}">${rs(r.net)}<small>net ${pct(r.netPct)}</small></div></div>`).join(''):'<div class="empty"><b>Team khali hai</b>Setup mein salesperson add karein.</div>'}
+    ${C.company.revenue?`<div class="lrow click" onclick="A.goPerson('company')"><div class="l"><span class="ava" style="width:32px;height:32px;font-size:13px;border-color:var(--line2);color:var(--ink2)">DC</span><span>Company ka apna customer<small>${C.company.units} laptops · ${rsL(C.company.revenue)} sale</small></span></div><div class="v ${sgn(C.company.net)}">${rs(C.company.net)}<small>Yousuf ${pct(C.you)} nikal kar</small></div></div>`:''}
+  </div>`;
+
+  const recent=`<div class="card">
+    <div class="card-h"><h2>Taaza sales</h2>${C.sales.length?`<button class="link" onclick="A.go('sales')">Sab (${C.sales.length})</button>`:''}</div>
+    ${C.sales.length?C.sales.slice(0,4).map(s=>saleRow(s,C,false)).join(''):`<div class="empty"><b>${monthLabel(MONTH)} mein koi sale nahi</b>Add (+) par jaa kar pehli sale likhein.</div>`}
+  </div>`;
+
+  $('v-home').innerHTML=`<div class="g2"><div class="stack">${hero}${cover}${ledger}</div><div class="stack">${tcard}${team}${recent}${histCard()}</div></div>`;
+}
+
+/* ===== HISTORY (home ke andar) ===== */
+function histCard(){
+  let months=DZ.monthsWithData(S);if(!months.includes(MONTH))months.push(MONTH);months.sort();
+  const calcs=months.map(ym=>DZ.companyCalc(ym,S));
+  const shown=HIST_ALL?calcs:calcs.slice(-6);
+  const rows=shown.slice().reverse().map(c=>`<div class="hrow ${c.ym===MONTH?'cur':''}" onclick="A.openMonth('${c.ym}')"><b>${monthShort(c.ym)}</b><span>${rsL(c.revenue)}</span><span class="gold">${rsL(c.gp)}</span><span class="${sgn(c.net)}">${rsL(c.net)}</span></div>`).join('');
+  return `<div class="card"><div class="card-h"><h2>Mahina ba mahina</h2>${calcs.length>6?`<button class="link" onclick="A.histAll()">${HIST_ALL?'Sirf 6':'Sab mahine'}</button>`:''}</div>
+    <div class="hist-wrap" id="hist-wrap">${histSVG(shown.slice(-12))}</div>
+    <div class="legend"><span><i class="lg-gp"></i>Gross</span><span><i class="lg-net"></i>Net</span><span><i class="lg-loss"></i>Loss</span></div>
+    <div class="hrow head"><span>Mahina</span><span>Sale</span><span>Gross</span><span>Net</span></div>${rows}</div>`;
+}
+function histSVG(ms){
+  if(!ms.length)return'';
+  const bw=18,gap=4,gw=bw*2+gap,step=gw+26,padL=12,W=Math.max(padL*2+ms.length*step,260),H=200,top=24,bot=40,ph=H-top-bot;
+  const vals=ms.flatMap(m=>[m.gp,m.net]);let mx=Math.max(0,...vals),mn=Math.min(0,...vals);if(mx===mn)mx=mn+1;
+  const y=v=>top+(mx-v)/(mx-mn)*ph;const y0=y(0);
+  let s=`<svg class="hist" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Mahina ba mahina gross aur net profit">`;
+  s+=`<line x1="${padL}" x2="${W-padL}" y1="${y0}" y2="${y0}" class="zero"/>`;
+  ms.forEach((m,i)=>{
+    const x=padL+i*step+13;
+    const r=(v,xx,cls)=>{const h=Math.abs(y(v)-y0);const yy=v>=0?y0-h:y0;return `<rect x="${xx}" y="${yy.toFixed(1)}" width="${bw}" height="${Math.max(h,v?1.5:0).toFixed(1)}" rx="3" class="${cls}"><title>${monthLabel(m.ym)}: ${cls==='gp'?'Gross':'Net'} ${rs(v)}</title></rect>`;};
+    s+=r(m.gp,x,'gp')+r(m.net,x+bw+gap,m.net>=0?'net':'loss');
+    s+=`<text x="${x+gw/2}" y="${H-8}" class="lbl ${m.ym===MONTH?'cur':''}" text-anchor="middle">${monthShort(m.ym)}</text>`;
+    const vy=m.net>=0?Math.min(y(m.net),y(m.gp))-6:Math.min(y(m.net)+13,H-bot+12);
+    s+=`<text x="${x+gw/2}" y="${vy.toFixed(1)}" class="val" text-anchor="middle">${shortN(m.net)}</text>`;
+  });
+  return s+'</svg>';
+}
+
+/* ===== SALES ===== */
+function saleRow(s,C,withActions){
+  const profit=(+s.price||0)-(+s.cost||0);const m=s.price>0?profit/s.price*100:0;
+  const who=s.person===CO?`<span class="chip amber">Company customer</span>`:`<span class="chip gold">${esc(personName(s.person,C))}</span>`;
+  return `<div class="srow ${s.refunded?'ref':''}">
+    <div style="min-width:0">
+      <div class="m">${esc(s.model||'—')}</div>
+      ${s.specs?`<div class="s">${esc(s.specs)}</div>`:''}
+      <div class="chips">${who}${withActions?'':`<span class="chip">${fmtD(s.date)}</span>`}${s.refunded?`<span class="chip neg">Refund ${fmtD(s.refundDate)}</span>`:''}${s.note?`<span class="chip">${esc(s.note)}</span>`:''}</div>
+    </div>
+    <div class="p"><b>${rs(s.price||0)}</b><span>cost ${rs(s.cost||0)}</span><br><span class="pf ${profit<0?'neg':'pos'}">${profit<0?'−':'+'}${rs(Math.abs(profit)).slice(3)} (${pct(m)})</span>
+      ${withActions?`<div class="acts">
+        <button class="ibtn" title="Edit" onclick="A.editSale('${s.ym}','${s.id}')">${ICON.edit}</button>
+        <button class="ibtn" title="${s.refunded?'Refund wapas':'Refund'}" onclick="A.refund('${s.ym}','${s.id}')">${ICON.refund}</button>
+        <button class="ibtn danger" title="Delete" onclick="A.delSale('${s.ym}','${s.id}')">${ICON.trash}</button>
+      </div>`:''}
+    </div>
+  </div>`;
+}
+function renderSales(C){
+  const q=Q.trim().toLowerCase();
+  const list=C.sales.filter(s=>!q||[s.model,s.specs,s.note,personName(s.person,C)].join(' ').toLowerCase().includes(q));
+  const groups=[];let cur=null;
+  for(const s of list){if(!cur||cur.date!==s.date){cur={date:s.date,items:[],sum:0};groups.push(cur);}cur.items.push(s);if(!s.refunded)cur.sum+=(+s.price||0);}
+  $('v-sales').innerHTML=`
+    <div class="sumstrip">
+      <div><span>Sale</span><b>${rsL(C.revenue)}</b><small>${C.units} laptops${C.refundCount?`, ${C.refundCount} refund`:''}</small></div>
+      <div><span>Laptop cost</span><b>${rsL(C.cost)}</b><small>${C.company.units?`${C.company.units} company customer`:'&nbsp;'}</small></div>
+      <div><span>Gross profit</span><b class="gold">${rsL(C.gp)}</b><small>margin ${pct(C.margin)}</small></div>
+    </div>
+    <div class="search"><input id="q" placeholder="Model, salesperson ya note dhoondein" value="${esc(Q)}" autocomplete="off"></div>
+    <div id="slist">${groups.length?groups.map(g=>`<div class="dgroup"><b>${fmtDL(g.date)}</b><span>${g.items.length} sale, ${rsL(g.sum)}</span></div>${g.items.map(s=>saleRow(s,C,true)).join('')}`).join(''):
+      `<div class="empty"><b>${q?'Kuch nahi mila':monthLabel(MONTH)+' mein koi sale nahi'}</b>${q?'Doosra lafz try karein.':'Add (+) par jaa kar pehli sale likhein.'}</div>`}</div>`;
+  const qi=$('q');qi.oninput=e=>{Q=e.target.value;const pos=qi.selectionStart;renderSales(DZ.companyCalc(MONTH,S));const n=$('q');n.focus();try{n.setSelectionRange(pos,pos);}catch(x){}};
+}
+
+/* ===== TEAM ===== */
+function renderTeam(C){
+  const list=GRADE==='net'?C.byNet:C.byPct;
+  const maxV=Math.max(1,...list.map(r=>Math.abs(GRADE==='net'?r.net:r.netPct)));
+  const grading=`<div class="card raised">
+    <div class="card-h"><h2>Grading</h2><div class="seg"><button class="${GRADE==='net'?'on':''}" onclick="A.grade('net')">Net amount</button><button class="${GRADE==='pct'?'on':''}" onclick="A.grade('pct')">Net %</button></div></div>
+    <div class="d">${GRADE==='net'?'Kaun company ko sab se zyada net de raha hai — gross profit minus us ki pay minus Yousuf ka hissa.':'Apni sale ka kitna % company ko net de raha hai — profit margin ki quality.'}</div>
+    ${list.length?list.map((r,i)=>{const v=GRADE==='net'?r.net:r.netPct;const wd=Math.abs(v)/maxV*100;return `<div class="lb" onclick="A.goPerson('${esc(r.id)}')"><span class="rk r${i+1}">${i+1}</span><div class="n">${esc(r.name)}<small>${r.units} laptops · ${rsL(r.revenue)} sale · gross ${pct(r.margin)}</small></div><div class="v ${sgn(v)}">${GRADE==='net'?rs(v):pct(v)}<small>${GRADE==='net'?`net ${pct(r.netPct)}`:rs(r.net)}</small></div><div class="bar"><i class="${v<0?'neg':'pos'}" style="width:${wd}%"></i></div></div>`;}).join(''):'<div class="empty"><b>Abhi grading nahi</b>Sale aane par ranking yahan banegi.</div>'}
+  </div>`;
+  const boxes=C.rows.map(r=>personBox(r,C)).join('')+companyBox(C);
+  $('v-team').innerHTML=`<div style="max-width:720px">${grading}</div><div class="sec-t"><h2>Har salesperson ka box</h2><p>${monthLabel(MONTH)}</p></div><div class="pgrid">${boxes}</div>`;
+}
+function personBox(r,C){
+  const cfg=C.cfg,nx=r.next,sl=r.slab,first=cfg.slabs[0];
+  const lo=sl?sl.min:0,hi=nx?nx.min:(sl?sl.min:0);
+  const prog=hi>lo?Math.min(100,Math.max(0,(r.revenue-lo)/(hi-lo)*100)):100;
+  const payLabel=r.payMode==='slab'?`${lacs(sl.min)} slab — fixed amount`:(r.revenue>0?`sale ka ${pct(cfg.under)} (${lacs(first.min)} se neeche)`:'');
+  return `<div class="pbox" id="pb-${esc(r.id)}">
+    <div class="pbox-h"><div class="ava">${initials(r.name)}</div><div><div class="n">${esc(r.name)}${r.active?'':' <span class="chip">inactive</span>'}</div><div class="d">${r.units} laptop${r.units===1?'':'s'} · ${rsL(r.revenue)} sale${r.refunded.length?` · ${r.refunded.length} refund`:''}</div></div>
+      <div class="net"><b class="${sgn(r.net)}">${rs(r.net)}</b><span>net · ${pct(r.netPct)}</span></div></div>
+    <div class="story">${r.revenue>0?`<b>${esc(r.name)}</b> ne ${rs(r.revenue)} ki sale par <b class="gold">${rs(r.gp)}</b> gross profit banaya (${pct(r.margin)}). Us ki pay ${rs(r.pay)} aur Yousuf ${pct(C.you)} = ${rs(r.yousuf)} nikal kar company ko <b class="${sgn(r.net)}">${rs(r.net)}</b> mila — sale ka <b>${pct(r.netPct)}</b>.`:'Is mahine abhi koi sale nahi.'}</div>
+    <div class="slab"><div class="pbar"><i class="gold" style="width:${prog}%"></i></div><div class="slab-l"><span>${sl?`${lacs(sl.min)} slab: ${rs(sl.pay)}`:`${pct(cfg.under)} zone`}</span><span>${nx?`${lacs(nx.min)} par ${rs(nx.pay)} — ${rsL(nx.min-r.revenue)} baaki`:'Top slab'}</span></div></div>
+    ${lrow('Sale',rs(r.revenue),'')}
+    ${lrow('Laptop cost',rs(r.cost),'−','mut')}
+    <div class="lrow sub"><div class="l"><span class="op">=</span><span>Gross profit</span></div><div class="v gold">${rs(r.gp)}<small>margin ${pct(r.margin)}</small></div></div>
+    ${lrow('Salesperson pay',rs(r.pay),'−','mut',payLabel)}
+    ${lrow(`Yousuf ${pct(C.you)}`,rs(r.yousuf),'−','mut')}
+    <div class="lrow total" style="padding-top:10px"><div class="l"><span class="op">=</span><span>Net to company</span></div><div class="v ${sgn(r.net)}">${rs(r.net)}<small>${pct(r.netPct)} of sale${r.units?` · ${rs(r.perUnit)} per laptop`:''}${r.share>0?` · team ka ${Math.round(r.share)}%`:''}</small></div></div>
+  </div>`;
+}
+function companyBox(C){
+  const r=C.company;
+  return `<div class="pbox co" id="pb-company">
+    <div class="pbox-h"><div class="ava" style="border-color:var(--line2);color:var(--ink2)">DC</div><div><div class="n">Company ka apna customer</div><div class="d">direct / repeat customers · ${r.units} laptop${r.units===1?'':'s'}</div></div>
+      <div class="net"><b class="${sgn(r.net)}">${rs(r.net)}</b><span>net · ${pct(r.netPct)}</span></div></div>
+    <div class="story">${r.revenue>0?`Company ke apne customers se ${rs(r.revenue)} sale, gross <b class="gold">${rs(r.gp)}</b> (${pct(r.margin)}). Sirf Yousuf ${pct(C.you)} = ${rs(r.yousuf)} kat kar <b class="${sgn(r.net)}">${rs(r.net)}</b> net — koi salesperson pay nahi.`:'Sale entry mein "Company ka apna customer" chunein — wo yahan aayengi.'}</div>
+    ${lrow('Sale',rs(r.revenue),'')}
+    ${lrow('Laptop cost',rs(r.cost),'−','mut')}
+    <div class="lrow sub"><div class="l"><span class="op">=</span><span>Gross profit</span></div><div class="v gold">${rs(r.gp)}<small>margin ${pct(r.margin)}</small></div></div>
+    ${lrow(`Yousuf ${pct(C.you)}`,rs(r.yousuf),'−','mut')}
+    <div class="lrow total" style="padding-top:10px"><div class="l"><span class="op">=</span><span>Net to company</span></div><div class="v ${sgn(r.net)}">${rs(r.net)}<small>${pct(r.netPct)} of sale</small></div></div>
+  </div>`;
+}
+
+/* ===== TARGET ===== */
+function refMargin(ym,c){
+  if(c.revenue>0)return c.margin;
+  const months=DZ.monthsWithData(S).filter(m=>m<ym).reverse();
+  for(const m of months){const x=DZ.companyCalc(m,S);if(x.revenue>0)return x.margin;}
+  return 22;
+}
+function newPlan(ym){
+  const c=ym===MONTH?DZ.companyCalc(MONTH,S):DZ.companyCalc(ym,S);const T=targetOf(ym);
+  const n=T&&+T.n?+T.n:c.salesCount;
+  const p={ym,net:T?+T.net:'',R:T?+T.revenue:0,m:T?+T.margin:round1(refMargin(ym,c)),you:T?+T.you:c.you,n,F:c.fixedTotal,res:null};
+  if(T)p.res=DZ.plan(p.R,p.m,p.you,p.n,p.F,c.cfg);
+  return p;
+}
+function readPlanInputs(){
+  if(!$('pl-R'))return;
+  PLAN.R=Math.max(0,+$('pl-R').value||0);PLAN.m=+$('pl-m').value||0;PLAN.you=Math.max(0,+$('pl-you').value||0);
+  PLAN.n=Math.max(0,Math.round(+$('pl-n').value||0));PLAN.F=Math.max(0,+$('pl-F').value||0);
+}
+function renderTarget(C){
+  const T=targetOf(MONTH);
+  let prog='';
+  if(T){
+    const P=targetProgress(MONTH,C,T);
+    const persons=C.rows.filter(r=>r.id!==DZ.ORPHAN&&r.active);
+    prog=`<div class="card raised">
+      <div class="card-h"><h2>${monthLabel(MONTH)} ka target</h2><span class="tag ${P.cls}">${P.short}</span></div>
+      <div class="tgt">${ring(P.ach,P.cls)}<div class="tx"><b>${rs(C.net)} <span class="mut" style="font-weight:600">/ ${rs(+T.net)}</span></b><p>${P.line1}</p><p>${P.line2}</p></div></div>
+      <div class="kv">
+        <div><span>Sale abhi tak</span><b>${rsL(C.revenue)}</b><small>plan ${rsL(+T.revenue||0)} (${Math.round(P.revAch)}%)</small></div>
+        <div><span>Gross margin</span><b>${pct(C.margin)}</b><small>plan ${pct(+T.margin||0)}</small></div>
+        <div><span>Mahina guzra</span><b>${Math.round(P.elapsed)}%</b><small>din ${P.dayN}/${P.dim}</small></div>
+        <div><span>Is raftaar se net</span><b class="${sgn(P.projNet)}">${rsL(P.projNet)}</b><small>mahine ke end tak</small></div>
+      </div>
+      <div style="margin-top:16px"><div class="pbar"><i class="${P.cls||'gold'}" style="width:${Math.min(100,Math.max(0,P.ach))}%"></i><em style="left:${Math.min(100,P.elapsed)}%" title="Waqt"></em></div><div class="slab-l"><span>Net target ka ${Math.round(Math.max(0,P.ach))}%</span><span>| = waqt ${Math.round(P.elapsed)}%</span></div></div>
+      ${persons.length&&P.per?`<div class="sec-t" style="margin:16px 0 2px"><h3>Har salesperson — sale vs hissa</h3><p>${rsL(P.per)} each</p></div>${persons.map(r=>{const pc=P.per>0?r.revenue/P.per*100:0;return `<div class="lrow"><div class="l" style="max-width:46%"><span>${esc(r.name)}<small>${rsL(r.revenue)} / ${rsL(P.per)}</small></span></div><div style="flex:1"><div class="pbar"><i class="${pc>=100?'pos':pc>=P.elapsed?'gold':'amber'}" style="width:${Math.min(100,pc)}%"></i></div></div><div class="v" style="min-width:46px">${Math.round(pc)}%</div></div>`;}).join('')}`:''}
+      <div class="row-acts" style="margin-top:14px"><button class="btn btn-ghost btn-sm" onclick="A.loadTarget('${MONTH}')">Planner mein kholein</button><button class="btn btn-ghost btn-sm" style="color:var(--neg)" onclick="A.delTarget('${MONTH}')">Target hatayein</button></div>
+    </div>`;
+  }
+  if(!PLAN||(PLAN.ym!==MONTH&&!PLAN.res&&!PLAN.net))PLAN=newPlan(MONTH);
+  const P=PLAN,res=P.res;
+  const planner=`<div class="card">
+    <div class="card-h"><h2>Target planner</h2><span class="k">kya-agar hisaab</span></div>
+    <div class="d">Net target likhein — app batayegi kitni sale chahiye, har salesperson ka barabar hissa aur kam az kam gross margin. Phir sale, margin ya Yousuf % badal kar <b>Apply</b> dabayein.</div>
+    <div class="two">
+      <label class="f"><span>Mahina</span><input type="month" id="pl-ym" value="${P.ym}" onchange="A.planMonth(this.value)"></label>
+      <label class="f"><span>Net profit target (Rs)</span><input type="number" inputmode="numeric" id="pl-net" value="${P.net||''}" placeholder="1000000"></label>
+    </div>
+    <button class="btn btn-primary" onclick="A.planGo()">Plan banao</button>
+    ${res?`
+    <div class="sec-t" style="margin:18px 0 8px"><h3>Kya-agar</h3><p>badal kar Apply</p></div>
+    <div class="two">
+      <label class="f"><span>Total sale (Rs)</span><input type="number" inputmode="numeric" id="pl-R" value="${Math.round(P.R)}"></label>
+      <label class="f"><span>Gross margin %</span><div class="stepper"><button type="button" onclick="A.plStep(-0.5)">−</button><input type="number" step="0.1" inputmode="decimal" id="pl-m" value="${round1(P.m)}"><button type="button" onclick="A.plStep(0.5)">+</button></div></label>
+    </div>
+    <div class="three">
+      <label class="f"><span>Yousuf %</span><input type="number" step="0.1" inputmode="decimal" id="pl-you" value="${P.you}"></label>
+      <label class="f"><span>Salesperson</span><input type="number" inputmode="numeric" id="pl-n" value="${P.n}"></label>
+      <label class="f"><span>Fixed kharche</span><input type="number" inputmode="numeric" id="pl-F" value="${Math.round(P.F)}"></label>
+    </div>
+    <div class="row-acts"><button class="btn btn-primary" style="flex:1 1 140px" onclick="A.planApply()">Apply</button><button class="btn btn-ghost btn-sm" onclick="A.planSolve('R')">Sale nikaalo</button><button class="btn btn-ghost btn-sm" onclick="A.planSolve('m')">Margin nikaalo</button></div>
+    <p class="hint"><b>Apply</b> = in numbers par expected net. <b>Sale nikaalo</b> = is margin par target ke liye kitni sale chahiye. <b>Margin nikaalo</b> = is sale par target ke liye kam az kam margin.</p>
+    <div style="margin-top:14px">
+      ${lrow('Total sale',rs(res.R),'','',res.n?`${res.n} salesperson × ${rs(res.per)} each`:'')}
+      ${lrow(`Gross profit ${pct(res.m)}`,rs(res.gp),'=','gold')}
+      ${lrow(`Yousuf ${pct(res.you)}`,rs(res.yousuf),'−','mut')}
+      ${lrow('Salesperson pay',rs(res.pay),'−','mut',res.n?`${res.n} × ${rs(res.payEach)} (${res.payMode==='slab'?`${lacs(res.slab.min)} slab`:`${pct(C.cfg.under)} — ${lacs(C.cfg.slabs[0].min)} se neeche`})`:'')}
+      ${lrow('Fixed kharche',rs(res.F),'−','mut')}
+      <div class="lrow total"><div class="l"><span class="op">=</span><span>Expected net</span></div><div class="v ${sgn(res.net)}">${rs(res.net)}<small class="${res.net>=P.net?'pos':'neg'}">${res.net>=P.net?`target se ${rs(res.net-P.net)} zyada`:`target se ${rs(P.net-res.net)} kam`}</small></div></div>
+    </div>
+    <button class="btn btn-primary" style="margin-top:8px" onclick="A.saveTarget()">${targetOf(P.ym)?'Target update karein':'Target save karein'} — ${monthLabel(P.ym)}</button>`:''}
+  </div>`;
+  const tms=Object.keys(S.targets||{}).filter(k=>/^\d{4}-\d{2}$/.test(k)&&targetOf(k)).sort().reverse();
+  const saved=tms.length?`<div class="card"><div class="card-h"><h2>Saved targets</h2><span class="k">${tms.length}</span></div>${tms.map(ym=>{const t=S.targets[ym];const c=ym===MONTH?C:DZ.companyCalc(ym,S);const pr=targetProgress(ym,c,t);return `<div class="lrow click" onclick="A.openMonthTarget('${ym}')"><div class="l"><span>${monthLabel(ym)}<small>net ${rsL(+t.net)} · sale ${rsL(+t.revenue||0)} · margin ${pct(+t.margin||0)}</small></span></div><div class="v"><span class="tag ${pr.cls}">${pr.short}</span></div></div>`;}).join('')}</div>`:'';
+  $('v-target').innerHTML=`<div class="g2"><div class="stack">${prog}${planner}</div><div class="stack">${saved}</div></div>`;
+}
+
+/* ===== SETUP ===== */
+function renderSetup(C){
+  const cfg=C.cfg,you=cfg.you,isStd=YOU_OPTS.includes(you);
+  const people=DZ.peopleList(S);
+  const first=cfg.slabs[0];
+  const ex=[`${lacs(first.min*0.9)} → ${rs(first.min*0.9*cfg.under/100)} (${pct(cfg.under)})`].concat(cfg.slabs.map(s=>`${lacs(s.min)} → ${rs(s.pay)}`)).join(' · ');
+  const light=isLight();
+  $('v-setup').innerHTML=`<div class="g2"><div class="stack">
+    <div class="card">
+      <h2>Yousuf ka hissa</h2>
+      <div class="d">Mahine ki poori sale (salesperson + company customer) par % — badalte hi har jagah hisaab update ho jata hai.</div>
+      <select id="you-sel" onchange="A.youSel(this.value)">${YOU_OPTS.map(v=>`<option value="${v}" ${isStd&&v===you?'selected':''}>${v}%</option>`).join('')}<option value="custom" ${isStd?'':'selected'}>Custom…</option></select>
+      <div class="custom" id="you-custom" ${isStd?'hidden':''}><input type="number" step="0.1" min="0" max="100" inputmode="decimal" id="you-in" value="${you}" placeholder="e.g. 2.5"><button class="btn btn-ghost btn-sm" onclick="A.youCustom()">Set</button></div>
+      <div class="you-now">${monthLabel(MONTH)}: <b>${rs(C.yousuf)}</b> (${pct(you)} of ${rsL(C.revenue)} sale)</div>
+    </div>
+    <div class="card">
+      <h2>Salesperson pay criteria</h2>
+      <div class="d">Har salesperson ki apni mahine ki sale par. Pehli slab se neeche sirf sale ka %; slab touch hote hi fixed amount — jo sab se oonchi slab cross ho, wohi amount.</div>
+      <div class="srw" style="grid-template-columns:1fr 84px auto"><span style="white-space:normal">Pehli slab se neeche — sale ka</span><input type="number" step="0.5" min="0" inputmode="decimal" value="${cfg.under}" onchange="A.setUnder(this.value)"><span>%</span></div>
+      ${cfg.slabs.map((s,i)=>`<div class="srw"><span>Sale ≥</span><input type="number" step="0.5" min="0" inputmode="decimal" value="${trim((s.min/100000).toFixed(2))}" onchange="A.setSlab(${i},'min',this.value)"><span>lac → Rs</span><input type="number" inputmode="numeric" value="${s.pay}" onchange="A.setSlab(${i},'pay',this.value)"><button class="ibtn danger" onclick="A.delSlab(${i})" title="Hatayein">${ICON.trash}</button></div>`).join('')}
+      <div style="margin-top:12px"><button class="btn btn-ghost btn-sm" onclick="A.addSlab()">+ Slab add karein</button></div>
+      <p class="hint">Misaal: ${ex}</p>
+    </div>
+    <div class="card">
+      <h2>Sales team</h2>
+      <div class="d">Sirf naam — pay criteria sab par same lagta hai. Off = purani sales rahengi, nayi entry mein naam nahi aayega.</div>
+      ${people.map(p=>{const act=p.active!==false;return `<div class="prow ${act?'':'off'}"><div class="ava" style="width:36px;height:36px;font-size:14px">${initials(p.name)}</div><input value="${esc(p.name)}" onchange="A.setPerson('${p.id}',this.value)" aria-label="Naam"><button class="sw ${act?'on':''}" onclick="A.toggleActive('${p.id}')" style="flex:none"><i></i>${act?'Active':'Off'}</button><button class="ibtn danger" title="Hatayein" onclick="A.delPerson('${p.id}')">${ICON.trash}</button></div>`;}).join('')||'<div class="empty" style="padding:10px 0">Abhi koi salesperson nahi.</div>'}
+      <div class="add-row" style="grid-template-columns:1fr auto"><input id="np-name" placeholder="Naya salesperson" autocomplete="off"><button class="btn btn-ghost btn-sm" onclick="A.addPerson()">Add</button></div>
+    </div>
+  </div><div class="stack">
+    <div class="card">
+      <h2>Fixed kharche — har mahine</h2>
+      <div class="d">Rent, bijli, internet, Yousuf ki fixed salary, designer, office boy — jo har mahine lagta hai.</div>
+      ${C.fixedItems.map(f=>`<div class="xrow"><input value="${esc(f.name)}" onchange="A.setFixed('${f.id}','name',this.value)" aria-label="Kharcha"><input type="number" inputmode="numeric" value="${+f.amount||0}" onchange="A.setFixed('${f.id}','amount',this.value)" aria-label="Amount"><button class="ibtn danger" onclick="A.delFixed('${f.id}')" title="Hatayein">${ICON.trash}</button></div>`).join('')||'<div class="empty" style="padding:10px 0">Abhi koi fixed kharcha nahi.</div>'}
+      <div class="add-row"><input id="nf-name" placeholder="Shop rent" autocomplete="off"><input id="nf-amt" type="number" inputmode="numeric" placeholder="Rs"><button class="btn btn-ghost btn-sm" onclick="A.addFixed()">Add</button></div>
+      <div class="tot"><span>Har mahine</span><b>${rs(C.fixedStanding)}</b></div>
+    </div>
+    <div class="card">
+      <h2>${monthLabel(MONTH)} ke extra kharche</h2>
+      <div class="d">Sirf is mahine wale — repair, event, koi ek baar ka kharcha.</div>
+      ${C.mxItems.map(f=>`<div class="xrow"><input value="${esc(f.name)}" onchange="A.setMx('${f.id}','name',this.value)" aria-label="Kharcha"><input type="number" inputmode="numeric" value="${+f.amount||0}" onchange="A.setMx('${f.id}','amount',this.value)" aria-label="Amount"><button class="ibtn danger" onclick="A.delMx('${f.id}')" title="Hatayein">${ICON.trash}</button>${f.date?`<div class="dt">${fmtD(f.date)}</div>`:''}</div>`).join('')||'<div class="empty" style="padding:10px 0">Is mahine koi extra kharcha nahi.</div>'}
+      <div class="add-row"><input id="nx-name" placeholder="AC repair" autocomplete="off"><input id="nx-amt" type="number" inputmode="numeric" placeholder="Rs"><button class="btn btn-ghost btn-sm" onclick="A.addMx()">Add</button></div>
+      <div class="tot"><span>Is mahine extra</span><b>${rs(C.monthExtra)}</b></div>
+    </div>
+    <div class="card">
+      <h2>Is mahine ka fixed burden</h2>
+      ${lrow('Fixed kharche',rs(C.fixedStanding),'')}
+      ${lrow('Extra kharche',rs(C.monthExtra),'+')}
+      <div class="lrow total"><div class="l"><span class="op">=</span><span>Cover karna hai</span></div><div class="v gold">${rs(C.fixedTotal)}</div></div>
+      <p class="hint">Yousuf ka ${pct(you)} aur salesperson pay sale ke saath badalte hain, is liye wo yahan nahi — wo gross profit se pehle kat'te hain.</p>
+    </div>
+    <div class="card">
+      <h2>App</h2>
+      <div class="lrow"><div class="l"><span>Theme</span></div><button class="sw ${light?'on':''}" onclick="A.theme()"><i></i>${light?'Light':'Dark'}</button></div>
+      <div class="lrow"><div class="l"><span>Mahine ki summary</span></div><button class="btn btn-ghost btn-sm" onclick="A.share()">Share / copy</button></div>
+      <div class="lrow" style="border:0"><div class="l"><span>Logout</span></div><button class="btn btn-ghost btn-sm" onclick="A.logout()">Logout</button></div>
+    </div>
+  </div></div>`;
+}
+
+/* ===== ADD / EDIT FORM ===== */
+function fillPersonSelect(){
+  const sel=$('f-person');const cur=sel.value;
+  const people=DZ.peopleList(S).filter(p=>p.active!==false||(EDIT&&EDIT.sale.person===p.id));
+  sel.innerHTML=`<optgroup label="Salesperson">${people.length?people.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join(''):'<option value="" disabled>Setup mein salesperson add karein</option>'}</optgroup><optgroup label="Direct"><option value="${CO}">Company ka apna customer (koi salesperson nahi)</option></optgroup>`;
+  if(cur&&(cur===CO||people.some(p=>p.id===cur)))sel.value=cur;
+}
+function preview(){
+  const c=+$('f-cost').value||0,p=+$('f-price').value||0;const el=$('f-prev');
+  if(!p){el.innerHTML='<span>Is laptop ka gross profit</span><b>—</b>';return;}
+  const pr=p-c,m=pr/p*100,you=DZ.cfgOf(S).you;
+  el.innerHTML=`<span>${pr<0?'Cost se kam — loss sale':'Gross profit'} · margin ${pct(m)}<br><span style="font-size:12px">Yousuf ${pct(you)} = ${rs(p*you/100)}</span></span><b class="${sgn(pr)}">${rs(pr)}</b>`;
+}
+function bindForm(){
+  ['f-cost','f-price'].forEach(id=>$(id).addEventListener('input',preview));
+  $('f-save').onclick=saveSale;
+  $('f-cancel').onclick=()=>cancelEdit(true);
+  $('f-model').addEventListener('keydown',e=>{if(e.key==='Enter')$('f-specs').focus();});
+  $('f-price').addEventListener('keydown',e=>{if(e.key==='Enter')saveSale();});
+}
+function clearForm(keep){
+  if(!keep){$('f-date').value=today();}
+  ['f-model','f-specs','f-cost','f-price','f-note'].forEach(id=>$(id).value='');
+  preview();
+}
+async function saveSale(){
+  const date=$('f-date').value,person=$('f-person').value,model=$('f-model').value.trim(),specs=$('f-specs').value.trim(),
+        cost=+$('f-cost').value,price=+$('f-price').value,note=$('f-note').value.trim();
+  if(!date||!/^\d{4}-\d{2}-\d{2}$/.test(date))return toast('Tareekh sahi nahi',true),$('f-date').focus();
+  if(!person)return toast('Salesperson chunein',true),$('f-person').focus();
+  if(!model)return toast('Laptop model likhein',true),$('f-model').focus();
+  if(!(price>0))return toast('Sale price likhein',true),$('f-price').focus();
+  if(!(cost>=0)||$('f-cost').value==='')return toast('Cost price likhein',true),$('f-cost').focus();
+  if(cost>price){const ok=await modal({title:'Cost sale price se zyada hai',body:`<p>${rs(price-cost)} ka nuqsaan is laptop par. Phir bhi save karein?</p>`,ok:'Haan, save karein'});if(!ok)return;}
+  const ym=date.slice(0,7);
+  const data={date,person,model,specs,cost,price,note,createdAt:Date.now()};
+  if(EDIT){
+    const old=EDIT.sale;data.createdAt=old.createdAt||Date.now();
+    if(old.refunded){data.refunded=true;data.refundDate=old.refundDate||today();}
+    const id=EDIT.id,oldYm=EDIT.ym;
+    await w(async()=>{await set(ref(db,`${ROOT}/sales/${ym}/${id}`),data);if(oldYm!==ym)await remove(ref(db,`${ROOT}/sales/${oldYm}/${id}`));},'Sale update ho gayi');
+    cancelEdit(false);go('sales');return;
+  }
+  await w(()=>push(ref(db,`${ROOT}/sales/${ym}`),data),ym===MONTH?'Sale save ho gayi':`Sale ${monthLabel(ym)} mein save hui`);
+  clearForm(true);$('f-model').focus();
+}
+function cancelEdit(goBack){
+  EDIT=null;$('f-title').textContent='Nayi sale';$('f-sub').textContent='Cost aur sale price likhein — gross profit, Yousuf ka hissa aur salesperson ka hisaab khud ho jayega.';$('f-save').textContent='Sale save karein';$('f-editacts').hidden=true;clearForm(false);fillPersonSelect();
+  if(goBack)go('sales');
+}
+
+/* ===== SHARE ===== */
+async function shareSummary(){
+  if(!LOADED)return;
+  const C=DZ.companyCalc(MONTH,S);
+  const lines=[`Denzen — ${monthLabel(MONTH)}`,`Sale: ${rs(C.revenue)} (${C.units} laptops)`,`Laptop cost: ${rs(C.cost)}`,`Gross profit: ${rs(C.gp)} (margin ${pct(C.margin)})`,`Yousuf ${pct(C.you)}: −${rs(C.yousuf)}`,`Salesperson pay: −${rs(C.teamPay)}`,`Fixed kharche: −${rs(C.fixedTotal)}`,`Net profit: ${rs(C.net)} (${pct(C.netPct)})`,`Fixed cover: ${Math.round(Math.max(0,Math.min(100,C.coverage)))}%`,'',...C.rows.map(r=>`${r.name}: ${r.units} laptops, sale ${rs(r.revenue)}, pay ${rs(r.pay)}, net ${rs(r.net)} (${pct(r.netPct)})`)];
+  if(C.company.revenue)lines.push(`Company customer: ${C.company.units} laptops, sale ${rs(C.company.revenue)}, net ${rs(C.company.net)}`);
+  const T=targetOf(MONTH);if(T){const P=targetProgress(MONTH,C,T);lines.push('',`Target ${rs(+T.net)}: ${Math.round(Math.max(0,P.ach))}% — ${P.short}`);}
+  const text=lines.join('\n');
+  try{if(navigator.share){await navigator.share({title:'Denzen net profit',text});return;}}catch(e){if(e&&e.name==='AbortError')return;}
+  try{await navigator.clipboard.writeText(text);toast('Summary copy ho gayi');}catch(e){await modal({title:'Summary',body:`<textarea rows="10" readonly style="font-size:13px">${esc(text)}</textarea>`,ok:'Theek hai',cancel:'Band'});}
+}
+
+/* ===== ACTIONS ===== */
+function saveSlabs(slabs,msg){const arr=slabs.map(s=>({min:Math.round(+s.min),pay:Math.round(+s.pay)})).sort((a,b)=>a.min-b.min);w(()=>set(ref(db,`${ROOT}/cfg/slabs`),arr),msg);}
+const A=window.A={
+  go,
+  goPerson(id){go('team');setTimeout(()=>{const el=document.getElementById('pb-'+id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},50);},
+  grade(k){GRADE=k;render();},
+  histAll(){HIST_ALL=!HIST_ALL;render();},
+  openMonth(ym){setMonth(ym);go('home');},
+  theme:toggleTheme,
+  share:shareSummary,
+  logout(){sessionStorage.removeItem('dz_np_ok');location.reload();},
+  /* sales */
+  editSale(ym,id){
+    const s=(S.sales[ym]||{})[id];if(!s)return;
+    EDIT={ym,id,sale:s};
+    go('add');
+    $('f-title').textContent='Sale edit';$('f-sub').textContent=`${s.model||''} — ${fmtD(s.date)}`;$('f-save').textContent='Changes save karein';$('f-editacts').hidden=false;
+    fillPersonSelect();
+    $('f-date').value=s.date;$('f-person').value=s.person;$('f-model').value=s.model||'';$('f-specs').value=s.specs||'';$('f-cost').value=s.cost;$('f-price').value=s.price;$('f-note').value=s.note||'';preview();
+  },
+  async refund(ym,id){
+    const s=(S.sales[ym]||{})[id];if(!s)return;
+    if(s.refunded){const ok=await modal({title:'Refund wapas lein?',body:`<p>${esc(s.model)} dobara sale mein shamil ho jayega.</p>`,ok:'Wapas lein'});if(!ok)return;
+      return w(()=>update(ref(db,`${ROOT}/sales/${ym}/${id}`),{refunded:null,refundDate:null}),'Refund hata diya');}
+    const ok=await modal({title:'Refund mark karein',body:`<p>${esc(s.model)} (${rs(s.price)}) sale, cost aur salesperson ki revenue se nikal jayega.</p><label class="f"><span>Refund ki tareekh</span><input type="date" id="rf-date" value="${today()}"></label>`,ok:'Refund karein',danger:true});
+    if(!ok)return;
+    const rd=document.getElementById('rf-date');const refundDate=(rd&&rd.value)||today();
+    w(()=>update(ref(db,`${ROOT}/sales/${ym}/${id}`),{refunded:true,refundDate}),'Refund mark ho gaya');
+  },
+  async delSale(ym,id){
+    const s=(S.sales[ym]||{})[id];if(!s)return;
+    const ok=await modal({title:'Sale delete karein?',body:`<p>${esc(s.model)} — ${rs(s.price)}. Ye wapas nahi aayegi. Agar customer ne wapas kiya hai to Refund use karein.</p>`,ok:'Delete',danger:true});
+    if(ok)w(()=>remove(ref(db,`${ROOT}/sales/${ym}/${id}`)),'Sale delete ho gayi');
+  },
+  /* yousuf + criteria */
+  youSel(v){if(v==='custom'){$('you-custom').hidden=false;$('you-in').focus();return;}A.setYou(+v);},
+  youCustom(){A.setYou(+$('you-in').value);},
+  setYou(v){if(!(v>=0&&v<=100))return toast('0 se 100 ke beech % likhein',true);w(()=>set(ref(db,`${ROOT}/cfg/you`),Math.round(v*100)/100),`Yousuf ${pct(v)} set`);},
+  setUnder(v){const n=+v;if(!(n>=0&&n<=100))return toast('0 se 100 ke beech % likhein',true);w(()=>set(ref(db,`${ROOT}/cfg/under`),Math.round(n*100)/100),`Pehli slab se neeche ${pct(n)}`);},
+  setSlab(i,field,val){const cfg=DZ.cfgOf(S);const s=cfg.slabs[i];if(!s)return;
+    if(field==='min'){const v=Math.round((+val||0)*100000);if(!(v>0))return render();s.min=v;}else{s.pay=Math.max(0,+val||0);}
+    saveSlabs(cfg.slabs,'Slab update');},
+  addSlab(){const cfg=DZ.cfgOf(S);const last=cfg.slabs[cfg.slabs.length-1];cfg.slabs.push({min:last?last.min+200000:1000000,pay:last?last.pay+10000:40000});saveSlabs(cfg.slabs,'Slab add — amount set karein');},
+  async delSlab(i){const cfg=DZ.cfgOf(S);if(cfg.slabs.length<=1)return toast('Kam az kam ek slab chahiye',true);const s=cfg.slabs[i];if(!s)return;
+    const ok=await modal({title:`${lacs(s.min)} slab hatayein?`,ok:'Hatayein',danger:true});if(!ok)return;cfg.slabs.splice(i,1);saveSlabs(cfg.slabs,'Slab hata di');},
+  /* team */
+  addPerson(){const name=$('np-name').value.trim();if(!name)return toast('Naam likhein',true),$('np-name').focus();
+    w(()=>push(ref(db,`${ROOT}/people`),{name,active:true,order:Date.now(),createdAt:Date.now()}),`${name} add ho gaya`);},
+  setPerson(id,val){const p=S.people[id];if(!p)return;const n=val.trim();if(!n)return render();w(()=>update(ref(db,`${ROOT}/people/${id}`),{name:n}),'Naam update');},
+  toggleActive(id){const p=S.people[id];if(!p)return;const act=p.active!==false;w(()=>update(ref(db,`${ROOT}/people/${id}`),{active:!act}),act?'Off — nayi entry mein nahi aayega':'Active');},
+  async delPerson(id){const p=S.people[id];if(!p)return;
+    const has=Object.values(S.sales||{}).some(m=>Object.values(m||{}).some(s=>s.person===id));
+    if(has){const ok=await modal({title:`${p.name} ki sales record mein hain`,body:'<p>Record mehfooz rakhne ke liye delete nahi, Off kar dein — purane mahine sahi rahenge.</p>',ok:'Off karein'});if(ok)w(()=>update(ref(db,`${ROOT}/people/${id}`),{active:false}),'Off kar diya');return;}
+    const ok=await modal({title:`${p.name} ko hatayein?`,body:'<p>Is ki koi sale nahi hai, is liye poora record hat jayega.</p>',ok:'Hatayein',danger:true});
+    if(ok)w(()=>remove(ref(db,`${ROOT}/people/${id}`)),'Hata diya');},
+  /* expenses */
+  addFixed(){const name=$('nf-name').value.trim(),amount=Math.max(0,+$('nf-amt').value||0);if(!name)return toast('Kharche ka naam likhein',true),$('nf-name').focus();if(!amount)return toast('Amount likhein',true),$('nf-amt').focus();
+    w(()=>push(ref(db,`${ROOT}/fixed`),{name,amount,order:Date.now()}),'Fixed kharcha add');},
+  setFixed(id,field,val){const f=S.fixed[id];if(!f)return;const v=field==='amount'?Math.max(0,+val||0):val.trim();if(field==='name'&&!v)return render();w(()=>update(ref(db,`${ROOT}/fixed/${id}`),{[field]:v}),'Update');},
+  async delFixed(id){const f=S.fixed[id];if(!f)return;const ok=await modal({title:`${f.name} hatayein?`,body:'<p>Ye har mahine se hat jayega — purane mahine bhi is ke baghair dikhenge.</p>',ok:'Hatayein',danger:true});if(ok)w(()=>remove(ref(db,`${ROOT}/fixed/${id}`)),'Hata diya');},
+  addMx(){const name=$('nx-name').value.trim(),amount=Math.max(0,+$('nx-amt').value||0);if(!name)return toast('Kharche ka naam likhein',true),$('nx-name').focus();if(!amount)return toast('Amount likhein',true),$('nx-amt').focus();
+    w(()=>push(ref(db,`${ROOT}/monthExp/${MONTH}`),{name,amount,date:today(),order:Date.now()}),'Extra kharcha add');},
+  setMx(id,field,val){const f=((S.monthExp||{})[MONTH]||{})[id];if(!f)return;const v=field==='amount'?Math.max(0,+val||0):val.trim();if(field==='name'&&!v)return render();w(()=>update(ref(db,`${ROOT}/monthExp/${MONTH}/${id}`),{[field]:v}),'Update');},
+  async delMx(id){const f=((S.monthExp||{})[MONTH]||{})[id];if(!f)return;const ok=await modal({title:`${f.name} hatayein?`,ok:'Hatayein',danger:true});if(ok)w(()=>remove(ref(db,`${ROOT}/monthExp/${MONTH}/${id}`)),'Hata diya');},
+  /* target planner */
+  planMonth(v){if(!/^\d{4}-\d{2}$/.test(v||''))return;const net=+($('pl-net')&&$('pl-net').value)||0;const keep={m:PLAN.m,you:PLAN.you};PLAN=newPlan(v);if(!targetOf(v)){if(net>0)PLAN.net=net;PLAN.m=keep.m;PLAN.you=keep.you;}render();},
+  planGo(){
+    const ym=$('pl-ym').value||PLAN.ym;const net=+$('pl-net').value;
+    if(!/^\d{4}-\d{2}$/.test(ym))return toast('Mahina chunein',true);
+    if(!(net>0))return toast('Net profit target likhein',true),$('pl-net').focus();
+    if(ym!==PLAN.ym){const keep={m:PLAN.m,you:PLAN.you};PLAN=newPlan(ym);if(!targetOf(ym)){PLAN.m=keep.m;PLAN.you=keep.you;}}
+    readPlanInputs();PLAN.net=net;
+    const cfg=DZ.cfgOf(S);
+    const R=DZ.solveRevenue(net,PLAN.m,PLAN.you,PLAN.n,PLAN.F,cfg);
+    if(R==null)return toast('Is margin par target mumkin nahi — margin barhayein',true);
+    PLAN.R=R;PLAN.res=DZ.plan(R,PLAN.m,PLAN.you,PLAN.n,PLAN.F,cfg);render();
+  },
+  planApply(){readPlanInputs();const net=+$('pl-net').value;if(net>0)PLAN.net=net;if(!(PLAN.R>0))return toast('Total sale likhein',true);PLAN.res=DZ.plan(PLAN.R,PLAN.m,PLAN.you,PLAN.n,PLAN.F,DZ.cfgOf(S));render();},
+  planSolve(k){
+    readPlanInputs();const net=+$('pl-net').value;if(net>0)PLAN.net=net;if(!(PLAN.net>0))return toast('Net profit target likhein',true);
+    const cfg=DZ.cfgOf(S);
+    if(k==='R'){const R=DZ.solveRevenue(PLAN.net,PLAN.m,PLAN.you,PLAN.n,PLAN.F,cfg);if(R==null)return toast('Is margin par target mumkin nahi — margin barhayein',true);PLAN.R=R;}
+    else{const m=DZ.solveMargin(PLAN.net,PLAN.R,PLAN.you,PLAN.n,PLAN.F,cfg);if(m==null)return toast('Pehle total sale likhein',true);PLAN.m=Math.ceil(m*10)/10;}
+    PLAN.res=DZ.plan(PLAN.R,PLAN.m,PLAN.you,PLAN.n,PLAN.F,cfg);render();
+  },
+  plStep(d){const i=$('pl-m');if(!i)return;i.value=round1((+i.value||0)+d);A.planApply();},
+  async saveTarget(){
+    readPlanInputs();const net=+$('pl-net').value||PLAN.net;
+    if(!(net>0)||!(PLAN.R>0))return toast('Pehle Plan banao dabayein',true);
+    const ym=PLAN.ym;
+    const data={net:Math.round(net),revenue:Math.round(PLAN.R),margin:round1(PLAN.m),you:PLAN.you,n:PLAN.n,per:PLAN.n?Math.round(PLAN.R/PLAN.n):0,updatedAt:Date.now()};
+    await w(()=>set(ref(db,`${ROOT}/targets/${ym}`),data),`${monthLabel(ym)} ka target save ho gaya`);
+    if(ym!==MONTH)setMonth(ym);else render();
+  },
+  loadTarget(ym){PLAN=newPlan(ym);render();setTimeout(()=>{const el=$('pl-net');if(el)el.scrollIntoView({behavior:'smooth',block:'center'});},50);},
+  async delTarget(ym){const ok=await modal({title:`${monthLabel(ym)} ka target hatayein?`,ok:'Hatayein',danger:true});if(!ok)return;await w(()=>remove(ref(db,`${ROOT}/targets/${ym}`)),'Target hata diya');PLAN=null;render();},
+  openMonthTarget(ym){setMonth(ym);PLAN=newPlan(ym);go('target');}
+};
+
+/* ---------- boot ---------- */
+if(sessionStorage.getItem('dz_np_ok')==='1')start();else setTimeout(()=>$('pw').focus(),100);
+</script>
+</body>
+</html>
